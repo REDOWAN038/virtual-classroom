@@ -114,9 +114,14 @@ public class Login extends JFrame{
                             found = true;
                             if(choice.equals("Student")){
                                 setVisible(false);
-                                Student student = new Student(userID);
-                                student.setLocationRelativeTo(null);
-                                student.setVisible(true);
+                                Student student;
+                                try {
+                                    student = new Student(userID);
+                                    student.setLocationRelativeTo(null);
+                                    student.setVisible(true);
+                                } catch (ClassNotFoundException ex) {
+                                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                             }
                             
                             else{
