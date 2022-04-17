@@ -79,7 +79,7 @@ public class Login extends JFrame{
 	panel.add(lblType);
         lblType.setFont(f);
         
-        String[] choices = {"Teacher","Student"};
+        String[] choices = {"Administrator","Teacher","Student"};
         comboBox = new JComboBox(choices);
         comboBox.setBounds(148,244,234,22);
         panel.add(comboBox);
@@ -148,9 +148,16 @@ public class Login extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
-                SignUp sign = new SignUp();
-                sign.setLocationRelativeTo(null);
-                sign.setVisible(true);
+                SignUp sign;
+                try {
+                    sign = new SignUp();
+                    sign.setLocationRelativeTo(null);
+                    sign.setVisible(true);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
             
         });
