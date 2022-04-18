@@ -126,9 +126,14 @@ public class Login extends JFrame{
                             
                             else{
                                 setVisible(false);
-                                Teacher teacher = new Teacher(userID);
-                                teacher.setLocationRelativeTo(null);
-                                teacher.setVisible(true);
+                                Teacher teacher;
+                                try {
+                                    teacher = new Teacher(userID);
+                                    teacher.setLocationRelativeTo(null);
+                                    teacher.setVisible(true);
+                                } catch (ClassNotFoundException ex) {
+                                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                             }
                         }
                     }

@@ -24,14 +24,14 @@ import javax.swing.JTextField;
 public class SignUp extends JFrame{
     
     private Container c;
-    private JLabel lblSignUp,lblID,lblFName,lblLName,lblEmail,lblPhone,lblType,lblPassword,lblCPassword,lblGender,lblReligion;
+    private JLabel lblSignUp,lblID,lblFName,lblLName,lblEmail,lblPhone,lblType,lblPassword,lblCPassword,lblGender,lblReligion,lblDept,lblSession;
     private JTextField fieldID,fieldFName,fieldLName,fieldEmail,fieldPhone;
     private JPasswordField fieldPassword,fieldCPassword;
     private JPanel panel;
     private Font f;
-    private JComboBox comboType,comboGender,comboReligion;
-    private JButton btnClear,btnConfirm;
-    private String choiceType,choiceGender,choiceReligion;
+    private JComboBox comboType,comboGender,comboReligion,comboDept,comboSession;
+    private JButton btnClear,btnConfirm,btnBack;
+    private String choiceType,choiceGender,choiceReligion,choiceDept,choiceSession;
     private int id;
     private String fName,lName,password,email,phone,confirmPassword;
     
@@ -45,7 +45,7 @@ public class SignUp extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("SignUp");
         setResizable(false);
-        setBounds(400, 100, 900, 500);
+        setBounds(400, 100, 900, 600);
         
         panel = new JPanel();
         panel.setBounds(10, 11, 888, 488);
@@ -84,6 +84,11 @@ public class SignUp extends JFrame{
         lblPhone.setFont(f);
         panel.add(lblPhone);
         
+        lblDept = new JLabel("Department");
+        lblDept.setBounds(12,340,100,20);
+        lblDept.setFont(f);
+        panel.add(lblDept);
+        
         lblType = new JLabel("Type");
         lblType.setBounds(450,90,40,20);
         lblType.setFont(f);
@@ -108,6 +113,11 @@ public class SignUp extends JFrame{
         lblReligion.setBounds(450,290,100,20);
         lblReligion.setFont(f);
         panel.add(lblReligion);
+        
+        lblSession = new JLabel("Session");
+        lblSession.setBounds(450,340,100,20);
+        lblSession.setFont(f);
+        panel.add(lblSession);
         
         id = ID.getID();
         
@@ -187,8 +197,35 @@ public class SignUp extends JFrame{
         });
         
         
+        String[] dept = {"CSE","EEE","SWE"};
+        comboDept = new JComboBox(dept);
+        comboDept.setBounds(140,340,200,30);
+        panel.add(comboDept);
+        
+        comboDept.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            choiceDept = comboDept.getSelectedItem().toString();
+            }
+
+        });
+        
+        String[] session = {"2017-18","2018-19","2019-20","2020-21"};
+        comboSession = new JComboBox(session);
+        comboSession.setBounds(650,340,200,30);
+        panel.add(comboSession);
+        
+        comboSession.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            choiceSession = comboSession.getSelectedItem().toString();
+            }
+
+        });
+        
+        
         btnClear = new JButton("Clear");
-        btnClear.setBounds(280,380,100,40);
+        btnClear.setBounds(350,420,100,40);
         btnClear.setFont(f);
         panel.add(btnClear);
         
@@ -210,7 +247,7 @@ public class SignUp extends JFrame{
         });
         
         btnConfirm = new JButton("Confirm");
-        btnConfirm.setBounds(490,380,100,40);
+        btnConfirm.setBounds(490,420,100,40);
         btnConfirm.setFont(f);
         panel.add(btnConfirm);
         
@@ -235,38 +272,43 @@ public class SignUp extends JFrame{
                     try {
                     
                     if(choiceType.equals("Student")){
-                        stmt = conn.prepareStatement("INSERT INTO "+ choiceType +" VALUES(?,?,?,?,?,?,?,?,?)");
+                        stmt = conn.prepareStatement("INSERT INTO "+ choiceType +" VALUES(?,?,?,?,?,?,?,?,?,?,?)");
                         stmt.setInt(1, id);
                         stmt.setString(2, fName);
                         stmt.setString(3, lName);
-                        stmt.setString(4, password);
-                        stmt.setString(5, email);
-                        stmt.setString(6, phone);
-                        stmt.setString(7, choiceGender);
-                        stmt.setString(8, choiceReligion);
-                        stmt.setDouble(9, 0.0);
+                        stmt.setString(4, choiceDept);
+                        stmt.setString(5, choiceSession);
+                        stmt.setString(6, password);
+                        stmt.setString(7, email);
+                        stmt.setString(8, phone);
+                        stmt.setString(9, choiceGender);
+                        stmt.setString(10, choiceReligion);
+                        stmt.setDouble(11, 0.0);
                         stmt.execute();
                         stmt.close();
                     }
                     
                     else{
-                        stmt = conn.prepareStatement("INSERT INTO "+ choiceType +" VALUES(?,?,?,?,?,?,?,?)");
+                        stmt = conn.prepareStatement("INSERT INTO "+ choiceType +" VALUES(?,?,?,?,?,?,?,?,?,?)");
                         stmt.setInt(1, id);
                         stmt.setString(2, fName);
                         stmt.setString(3, lName);
-                        stmt.setString(4, password);
-                        stmt.setString(5, email);
-                        stmt.setString(6, phone);
-                        stmt.setString(7, choiceGender);
-                        stmt.setString(8, choiceReligion);
+                        stmt.setString(4, choiceDept);
+                        stmt.setString(5, choiceSession);
+                        stmt.setString(6, password);
+                        stmt.setString(7, email);
+                        stmt.setString(8, phone);
+                        stmt.setString(9, choiceGender);
+                        stmt.setString(10, choiceReligion);
                         stmt.execute();
                         stmt.close();
                     }
                     
                     String tableName = "_" + fieldID.getText();
                     String op = "CREATE TABLE "+tableName+" (" +
-                    " Courses VARCHAR(100) NOT NULL, " + 
-                    " PRIMARY KEY (`Courses`))";
+                    " Course_Code VARCHAR(100) NOT NULL, " + 
+                    " Course_Name VARCHAR(100) NOT NULL, " + 
+                    " PRIMARY KEY (`Course_Code`))";
                     
                     stmt = conn.prepareStatement(op);
                     stmt.execute();
@@ -285,6 +327,26 @@ public class SignUp extends JFrame{
                     } catch (ClassNotFoundException ex) {
                         Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                }
+            }
+            
+        });
+        
+        btnBack = new JButton("Back");
+        btnBack.setBounds(210,420,100,40);
+        btnBack.setFont(f);
+        panel.add(btnBack);
+        
+        btnBack.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+                try {
+                    Login login = new Login();
+                    login.setLocationRelativeTo(null);
+                    login.setVisible(true);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             
