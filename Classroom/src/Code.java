@@ -13,13 +13,13 @@ public class Code {
         
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery("SELECT * FROM Course");
-        int cnt = 1;
+        int cnt = 0;
         
         while(rs.next()){
             cnt+=1;
         }
         
-        cnt = 100000+cnt;
+        cnt = 1000+cnt;
         
         String temp1 = "abcdefgh";
         String temp2 = "pqrstxyz";

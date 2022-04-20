@@ -71,7 +71,7 @@ public class Student extends JFrame implements Template{
         panel = new JPanel();
         int sz = 500;
         
-        if((numberofCourses*50)>600)
+        if((numberofCourses*50)>sz)
             sz = numberofCourses*50;
         
         panel.setPreferredSize(new Dimension(600,sz));
@@ -127,7 +127,7 @@ public class Student extends JFrame implements Template{
 
     @Override
     public void bodyofClassButton() {
-        int cnt = 120;
+        int cnt = 130;
         int idx = 0;
         
         JButton[] courseListName = new JButton[numberofCourses];
@@ -167,27 +167,79 @@ public class Student extends JFrame implements Template{
     @Override
     public void bodyofNew() {
         menuNew = new JMenu("New");
+        menuNew.setCursor(cursor);
         menuBar.add(menuNew);
-        menuNew.addActionListener(new ActionListener(){
-                @Override
-                public void actionPerformed(ActionEvent e) {
-
+        menuNew.addMouseListener(new MouseListener(){
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                setVisible(false);
+                try {
+                    JoinClass joinClass = new JoinClass(ID);
+                    joinClass.setLocationRelativeTo(null);
+                    joinClass.setVisible(true);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Teacher.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Teacher.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
-            });
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+            
+        });
     }
 
     @Override
     public void bodyofPayment() {
         menuPayment = new JMenu("Payment");
+        menuPayment.setCursor(cursor);
         menuBar.add(menuPayment);
-        menuPayment.addActionListener(new ActionListener(){
-                @Override
-                public void actionPerformed(ActionEvent e) {
+        menuPayment.addMouseListener(new MouseListener(){
+            @Override
+            public void mouseClicked(MouseEvent e) {
+            }
 
+            @Override
+            public void mousePressed(MouseEvent e) {
+                setVisible(false);
+                try {
+                    Payment pay = new Payment(ID);
+                    pay.setLocationRelativeTo(null);
+                    pay.setVisible(true);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
-            });
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+            
+        });
     }
 
     @Override

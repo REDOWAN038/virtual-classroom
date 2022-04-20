@@ -286,6 +286,19 @@ public class SignUp extends JFrame{
                         stmt.setDouble(11, 0.0);
                         stmt.execute();
                         stmt.close();
+                        
+                        stmt = conn.prepareStatement("INSERT INTO PAYMENT VALUES(?,?,?,?,?,?,?,?,?)");
+                        stmt.setInt(1, id);
+                        stmt.setString(2,"-");
+                        stmt.setString(3,"-");
+                        stmt.setString(4,"-");
+                        stmt.setString(5,"-");
+                        stmt.setString(6,"-");
+                        stmt.setString(7,"-");
+                        stmt.setString(8,"-");
+                        stmt.setString(9,"-");
+                        stmt.execute();
+                        stmt.close();
                     }
                     
                     else{

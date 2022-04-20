@@ -100,6 +100,7 @@ public class Login extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 boolean found = false;
+                
                 try {
                     stmt = conn.createStatement();
                     rs = stmt.executeQuery("SELECT * FROM "+choice);
@@ -112,7 +113,20 @@ public class Login extends JFrame{
                         
                         if(userID==dataBaseID && userPassword.equals(dataBasePassword)){
                             found = true;
-                            if(choice.equals("Student")){
+                            
+                            if(choice.equals("Administrator")){
+                                setVisible(false);
+                                try {
+                                    Administrator admin = new Administrator();
+                                    admin.setLocationRelativeTo(null);
+                                    admin.setVisible(true);
+                                } catch (ClassNotFoundException ex) {
+                                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                            }
+                            
+                            
+                            else if(choice.equals("Student")){
                                 setVisible(false);
                                 Student student;
                                 try {

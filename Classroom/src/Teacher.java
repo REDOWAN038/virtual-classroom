@@ -71,7 +71,7 @@ public class Teacher extends JFrame implements Template{
         panel = new JPanel();
         int sz = 500;
         
-        if((numberofCourses*50)>600)
+        if((numberofCourses*50)>sz)
             sz = numberofCourses*50;
         
         panel.setPreferredSize(new Dimension(600,sz));
@@ -127,7 +127,7 @@ public class Teacher extends JFrame implements Template{
 
     @Override
     public void bodyofClassButton() {
-        int cnt = 120;
+        int cnt = 130;
         int idx = 0;
         
         JButton[] courseListName = new JButton[numberofCourses];
@@ -167,14 +167,40 @@ public class Teacher extends JFrame implements Template{
     @Override
     public void bodyofNew() {
         menuNew = new JMenu("New");
+        menuNew.setCursor(cursor);
         menuBar.add(menuNew);
-        menuNew.addActionListener(new ActionListener(){
-                @Override
-                public void actionPerformed(ActionEvent e) {
-
+        menuNew.addMouseListener(new MouseListener(){
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                setVisible(false);
+                try {
+                    CreateClass createClass = new CreateClass(ID);
+                    createClass.setLocationRelativeTo(null);
+                    createClass.setVisible(true);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Teacher.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Teacher.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
-            });
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+            
+        });
     }
 
     @Override
