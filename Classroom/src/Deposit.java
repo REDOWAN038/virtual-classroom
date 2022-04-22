@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,6 +15,8 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -26,6 +30,8 @@ public class Deposit extends JFrame{
     private Font f;
     private Cursor cursor;
     private JButton btnBack,btnDeposit;
+    private JMenuBar menuBar;
+    private JMenu menuHome,menuSignOut;
     
     Connection conn = null;
     Statement stmt = null;
@@ -43,6 +49,78 @@ public class Deposit extends JFrame{
         conn = Connector.ConnectDatabase();
         f = new Font("Tahoma", Font.PLAIN, 18);
         cursor = new Cursor(Cursor.HAND_CURSOR);
+        
+        menuBar = new JMenuBar();
+        
+        menuHome = new JMenu("Home");
+        menuHome.setCursor(cursor);
+        menuBar.add(menuHome);
+        menuHome.addMouseListener(new MouseListener(){
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                setVisible(false);
+                try {
+                    Administrator admin = new Administrator();
+                    admin.setLocationRelativeTo(null);
+                    admin.setVisible(true);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Payment.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+            
+        });
+        
+        menuSignOut = new JMenu("Sign Out");
+        menuSignOut.setCursor(cursor);
+        menuBar.add(menuSignOut);
+        menuSignOut.addMouseListener(new MouseListener(){
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                setVisible(false);
+                try {
+                    Login login = new Login();
+                    login.setLocationRelativeTo(null);
+                    login.setVisible(true);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Payment.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+            
+        });
+        
+        this.setJMenuBar(menuBar);
         
         panel = new JPanel();
         panel.setBounds(5,10,490,490);
@@ -201,19 +279,35 @@ public class Deposit extends JFrame{
         btnDeposit.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                String op = "UPDATE STUDENT SET BALANCE=? WHERE ID=?";
-                try {
-                    pStmt = conn.prepareStatement(op);
-                    pStmt.setFloat(1,Float.parseFloat(fieldTotal.getText()));
-                    pStmt.setInt(2,Integer.parseInt(fieldID.getText()));
-                    pStmt.executeUpdate();
-                    pStmt.close();
-                    
+                float chkBalance = Float.parseFloat(fieldTotal.getText());
+                if(chkBalance<0.0f){
                     JDialog dialog = new JDialog();
                     dialog.setAlwaysOnTop(true);    
-                    JOptionPane.showMessageDialog(dialog, "Successfully Deposit" , null , JOptionPane.PLAIN_MESSAGE );
-                } catch (SQLException ex) {
-                    Logger.getLogger(Deposit.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(dialog, "Balance Can not be Negative" , null , JOptionPane.PLAIN_MESSAGE );
+                }
+                
+                else{
+                    String op = "UPDATE STUDENT SET BALANCE=? WHERE ID=?";
+                    try {
+                        pStmt = conn.prepareStatement(op);
+                        pStmt.setFloat(1,Float.parseFloat(fieldTotal.getText()));
+                        pStmt.setInt(2,Integer.parseInt(fieldID.getText()));
+                        pStmt.executeUpdate();
+                        pStmt.close();
+
+                        JDialog dialog = new JDialog();
+                        dialog.setAlwaysOnTop(true);    
+                        JOptionPane.showMessageDialog(dialog, "Successfully Deposit" , null , JOptionPane.PLAIN_MESSAGE );
+
+                        setVisible(false);
+                        Deposit deposit = new Deposit();
+                        deposit.setLocationRelativeTo(null);
+                        deposit.setVisible(true);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Deposit.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(Deposit.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
             
