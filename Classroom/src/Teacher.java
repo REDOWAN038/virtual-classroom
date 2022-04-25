@@ -219,13 +219,39 @@ public class Teacher extends JFrame implements Template{
     @Override
     public void bodyofProfile() {
         menuProfile = new JMenu("Profile");
+        menuProfile.setCursor(cursor);
         menuBar.add(menuProfile);
-        menuProfile.addActionListener(new ActionListener(){
-                @Override
-                public void actionPerformed(ActionEvent e) {
-
+        menuProfile.addMouseListener(new MouseListener(){
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                setVisible(false);
+                try {
+                    Profile profile = new Profile("Teacher",ID);
+                    profile.setLocationRelativeTo(null);
+                    profile.setVisible(true);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Teacher.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Teacher.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+            
         });
     }
     
