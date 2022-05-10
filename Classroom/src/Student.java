@@ -28,6 +28,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.LineBorder;
 
@@ -58,7 +59,7 @@ public class Student extends JFrame implements Template{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Login");
         setResizable(false);
-        setBounds(500, 100, 635, 550);
+        setBounds(500, 100, 700, 550);
         
         f = new Font("Tahoma", Font.PLAIN, 20);
         cursor = new Cursor(Cursor.HAND_CURSOR);
@@ -74,7 +75,7 @@ public class Student extends JFrame implements Template{
         if((numberofCourses*50)>sz)
             sz = numberofCourses*50;
         
-        panel.setPreferredSize(new Dimension(600,sz));
+        panel.setPreferredSize(new Dimension(665,sz));
         panel.setLayout(null);
         
         menuBar = new JMenuBar();
@@ -89,10 +90,10 @@ public class Student extends JFrame implements Template{
         
         this.setJMenuBar(menuBar);
         
-        showCourse = new JLabel("Your Classes");
-        showCourse.setBounds(260,80,200,30);
-        showCourse.setFont(f);
-        panel.add(showCourse);
+//        showCourse = new JLabel("Your Classes");
+//        showCourse.setBounds(260,80,200,30);
+//        showCourse.setFont(f);
+//        panel.add(showCourse);
         
         
         scroll = new JScrollPane(panel,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -126,27 +127,80 @@ public class Student extends JFrame implements Template{
     }
 
     @Override
-    public void bodyofClassButton() {
-        int cnt = 130;
+    public void bodyofClassButton(){
+        JTextArea[] courseListName = new JTextArea[numberofCourses];
+        
+        Color c1 = new Color(214,113,44);
+        Color c2= new Color(76,185,138);
+        Color c3 = new Color(36,69,63);
+        
+        int x = 10;
+        int y = 20;
+        int cnt = 0;
         int idx = 0;
         
-        JButton[] courseListName = new JButton[numberofCourses];
-        
         for(String s : courseList){
-            courseListName[idx] = new JButton(s);
-            courseListName[idx].setBounds(230,cnt,200,30);
+            courseListName[idx] = new JTextArea(s);
+            courseListName[idx].setEditable(false);
+            if(cnt==0)
+                courseListName[idx].setBackground(c1);
+            else if(cnt==1)
+                courseListName[idx].setBackground(c2);
+            else if(cnt==2)
+                courseListName[idx].setBackground(c3);
+            courseListName[idx].setForeground(Color.WHITE);
+            courseListName[idx].setCursor(cursor);
+            courseListName[idx].setBounds(x,y,200,100);
             courseListName[idx].setFont(f);
             panel.add(courseListName[idx]);
             
-            courseListName[idx].addActionListener(new ActionListener(){
+            final int cc = cnt;
+            
+            courseListName[idx].addMouseListener(new MouseListener(){
                 @Override
-                public void actionPerformed(ActionEvent e) {
+                public void mouseClicked(MouseEvent e) {
+                }
 
+                @Override
+                public void mousePressed(MouseEvent e) {
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                }
+
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    JTextArea area = (JTextArea)e.getSource();
+                    area.setBackground(Color.WHITE);
+                    area.setForeground(Color.BLACK);
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    JTextArea area = (JTextArea)e.getSource();
+                    if(cc==0)
+                        area.setBackground(c1);
+                    else if(cc==1)
+                        area.setBackground(c2);
+                    else if(cc==2)
+                          area.setBackground(c3);
+                    area.setForeground(Color.WHITE);
                 }
                 
             });
             
-            cnt+=40;
+            cnt = (cnt+1)%3;
+            
+            if(cnt==1)
+                x = 225;
+            else if(cnt==2)
+                x = 450;
+            else{
+                x = 10;
+                y+=110;
+            }
+            
             idx+=1;
         }
     }

@@ -44,12 +44,13 @@ public class Login extends JFrame{
         setTitle("Login");
         setResizable(false);
         setBounds(500, 100, 500, 500);
-        //c.setBackground(Color.LIGHT_GRAY);
+        //c.setBackground(Color.);
         
         panel = new JPanel();
 	//panel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 3), "Login", TitledBorder.LEADING, TitledBorder.TOP, new Font("Tahoma", Font.PLAIN, 24), new Color(0, 153, 255)));
 	panel.setBounds(10, 11, 469, 440);
 	panel.setLayout(null);
+        //panel.setBackground(new Color(0,0,0,34));
         
         f = new Font("Tahoma", Font.PLAIN, 20);
         conn = Connector.ConnectDatabase();
