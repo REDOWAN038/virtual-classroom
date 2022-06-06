@@ -108,7 +108,7 @@ public class Profile extends JFrame{
             public void mouseClicked(MouseEvent e) {
                 setVisible(false);
                 try {
-                    Login login = new Login();
+                    LoginPage login = new LoginPage();
                     login.setLocationRelativeTo(null);
                     login.setVisible(true);
                 } catch (ClassNotFoundException ex) {
