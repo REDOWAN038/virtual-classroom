@@ -107,6 +107,7 @@ public class SignUp extends javax.swing.JFrame {
         lblDepartment.setText("Department");
         getContentPane().add(lblDepartment, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 425, -1, -1));
 
+        fieldID.setEditable(false);
         fieldID.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         fieldID.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         getContentPane().add(fieldID, new org.netbeans.lib.awtextra.AbsoluteConstraints(139, 96, 186, -1));
@@ -213,6 +214,9 @@ public class SignUp extends javax.swing.JFrame {
         btnBack.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btnBack.setText("Back");
         btnBack.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBack.setMaximumSize(new java.awt.Dimension(105, 31));
+        btnBack.setMinimumSize(new java.awt.Dimension(105, 31));
+        btnBack.setPreferredSize(new java.awt.Dimension(105, 31));
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBackActionPerformed(evt);
@@ -223,12 +227,15 @@ public class SignUp extends javax.swing.JFrame {
         btnClear.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btnClear.setText("Clear");
         btnClear.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnClear.setMaximumSize(new java.awt.Dimension(105, 31));
+        btnClear.setMinimumSize(new java.awt.Dimension(105, 31));
+        btnClear.setPreferredSize(new java.awt.Dimension(105, 31));
         btnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnClearActionPerformed(evt);
             }
         });
-        getContentPane().add(btnClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 517, 98, -1));
+        getContentPane().add(btnClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 517, 98, 30));
 
         btnConfirm.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btnConfirm.setText("Confirm");
@@ -349,18 +356,6 @@ public class SignUp extends javax.swing.JFrame {
                     stmt.execute();
                     stmt.close();
 
-                    stmt = conn.prepareStatement("INSERT INTO PAYMENT VALUES(?,?,?,?,?,?,?,?,?)");
-                    stmt.setInt(1, id);
-                    stmt.setString(2, "-");
-                    stmt.setString(3, "-");
-                    stmt.setString(4, "-");
-                    stmt.setString(5, "-");
-                    stmt.setString(6, "-");
-                    stmt.setString(7, "-");
-                    stmt.setString(8, "-");
-                    stmt.setString(9, "-");
-                    stmt.execute();
-                    stmt.close();
                 } else {
                     stmt = conn.prepareStatement("INSERT INTO " + choiceType + " VALUES(?,?,?,?,?,?,?,?,?,?)");
                     stmt.setInt(1, id);
@@ -381,6 +376,8 @@ public class SignUp extends javax.swing.JFrame {
                 String op = "CREATE TABLE " + tableName + " ("
                         + " Course_Code VARCHAR(100) NOT NULL, "
                         + " Course_Name VARCHAR(100) NOT NULL, "
+                        + " Session VARCHAR(100) NOT NULL, "
+                        + " Section VARCHAR(100) NOT NULL, "
                         + " PRIMARY KEY (`Course_Code`))";
 
                 stmt = conn.prepareStatement(op);

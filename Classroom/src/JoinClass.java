@@ -91,16 +91,19 @@ public class JoinClass extends JFrame{
                 String tableName = "_" + Integer.toString(ID);
                 
                 String courseName = "";
+                String sessionName = "";
+                String sectionName = "";
                 try {
                     stmt = conn.createStatement();
                     rs = stmt.executeQuery("SELECT * FROM COURSE");
                     
                     while(rs.next()){
                         String code = rs.getString("ClassCode");
-                        String name = rs.getString("ClassName");
                         
                         if(code.equals(fieldCode.getText())){
-                            courseName = name;
+                            courseName = rs.getString("ClassName");
+                            sessionName = rs.getString("Session");
+                            sectionName = rs.getString("Section");
                             break;
                         }
                     }
@@ -108,9 +111,11 @@ public class JoinClass extends JFrame{
                     Logger.getLogger(JoinClass.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 try {
-                    pStmt = conn.prepareStatement("INSERT INTO "+ tableName +" VALUES(?,?)");
+                    pStmt = conn.prepareStatement("INSERT INTO "+ tableName +" VALUES(?,?,?,?)");
                     pStmt.setString(1,fieldCode.getText());
                     pStmt.setString(2,courseName);
+                    pStmt.setString(3,sessionName);
+                    pStmt.setString(4,sectionName);
                     pStmt.execute();
                     pStmt.close();
                 } catch (SQLException ex) {
