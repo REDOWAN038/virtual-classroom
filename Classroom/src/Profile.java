@@ -44,7 +44,7 @@ public class Profile extends JFrame{
     PreparedStatement pStmt = null;
     ResultSet rs = null;
     
-    Profile(String type,int ID) throws ClassNotFoundException, SQLException{
+    Profile(String type,int ID,String Name) throws ClassNotFoundException, SQLException{
         c = this.getContentPane();
         c.setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -67,18 +67,20 @@ public class Profile extends JFrame{
                 setVisible(false);
                 try {
                     if(type.equals("Student")){
-                        Student st = new Student(ID);
+                        Student st = new Student(ID,Name);
                         st.setLocationRelativeTo(null);
                         st.setVisible(true);
                     }
                     
                     else{
-                        Teacher tch = new Teacher(ID);
+                        Teacher tch = new Teacher(ID,Name);
                         tch.setLocationRelativeTo(null);
                         tch.setVisible(true);
                     }
+                } catch (SQLException ex) {
+                    Logger.getLogger(Profile.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(Payment.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Profile.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
 
@@ -112,8 +114,8 @@ public class Profile extends JFrame{
                     login.setLocationRelativeTo(null);
                     login.setVisible(true);
                 } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(Payment.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                    Logger.getLogger(Profile.class.getName()).log(Level.SEVERE, null, ex);
+                } 
             }
 
             @Override
@@ -365,7 +367,7 @@ public class Profile extends JFrame{
                         JOptionPane.showMessageDialog(dialog, "Saved" , null , JOptionPane.PLAIN_MESSAGE );
                         
                         setVisible(false);
-                        Profile profile = new Profile(type,ID);
+                        Profile profile = new Profile(type,ID,Name);
                         profile.setLocationRelativeTo(null);
                         profile.setVisible(true);
                     } catch (SQLException ex) {
@@ -391,7 +393,7 @@ public class Profile extends JFrame{
                         JOptionPane.showMessageDialog(dialog, "Saved" , null , JOptionPane.PLAIN_MESSAGE );
                         
                         setVisible(false);
-                        Profile profile = new Profile(type,ID);
+                        Profile profile = new Profile(type,ID,Name);
                         profile.setLocationRelativeTo(null);
                         profile.setVisible(true);
                     } catch (SQLException ex) {

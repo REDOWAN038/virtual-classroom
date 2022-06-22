@@ -30,7 +30,7 @@ public class JoinClass extends JFrame{
     PreparedStatement pStmt = null;
     ResultSet rs = null;
     
-    JoinClass(int ID) throws ClassNotFoundException, SQLException{
+    JoinClass(int ID,String Name) throws ClassNotFoundException, SQLException{
         c = this.getContentPane();
         c.setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -69,11 +69,13 @@ public class JoinClass extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
                 try {
-                    Student student = new Student(ID);
+                    Student student = new Student(ID,Name);
                     student.setLocationRelativeTo(null);
                     student.setVisible(true);
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(CreateClass.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(JoinClass.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             
@@ -118,6 +120,84 @@ public class JoinClass extends JFrame{
                     pStmt.setString(4,sectionName);
                     pStmt.execute();
                     pStmt.close();
+                    
+                    tableName = fieldCode.getText() + "_attendance_coloumns";
+                    String op = "SELECT * FROM "+tableName;;
+                    stmt = conn.createStatement();
+                    rs = stmt.executeQuery(op);
+                    int rowNumbers = 0;
+                    
+                    while(rs.next()){
+                        rowNumbers++;
+                    }
+                    
+                    rs.close();
+                    stmt.close();
+                    
+                    tableName = fieldCode.getText() + "_attendance";
+                    op = "INSERT INTO "+ tableName + " VALUES";
+                    String op1 = "(";
+                    int r = rowNumbers;
+                    
+                    while(r>1){
+                        op1 = op1+"?,";
+                        r-=1;
+                    }
+                    
+                    op1 = op1+"?)";
+                    
+                    op = op+op1;
+                    
+                    pStmt = conn.prepareStatement(op);
+                    pStmt.setInt(1,ID);
+                    pStmt.setString(2,Name);
+                    
+                    for(int i=3;i<=rowNumbers;i++){
+                        pStmt.setString(i,"-");
+                    }
+                    pStmt.executeUpdate();
+                    pStmt.close();
+                    
+                    
+                    tableName = fieldCode.getText() + "_result_coloumns";
+                    op = "SELECT * FROM "+tableName;;
+                    stmt = conn.createStatement();
+                    rs = stmt.executeQuery(op);
+                    rowNumbers = 0;
+                    
+                    while(rs.next()){
+                        rowNumbers++;
+                    }
+                    
+                    rs.close();
+                    stmt.close();
+                    
+                    tableName = fieldCode.getText() + "_result";
+                    op = "INSERT INTO "+ tableName + " VALUES";
+                    op1 = "(";
+                    r = rowNumbers;
+                    
+                    while(r>1){
+                        op1 = op1+"?,";
+                        r-=1;
+                    }
+                    
+                    op1 = op1+"?)";
+                    
+                    op = op+op1;
+                    
+                    pStmt = conn.prepareStatement(op);
+                    pStmt.setInt(1,ID);
+                    pStmt.setString(2,Name);
+                    
+                    for(int i=3;i<=rowNumbers;i++){
+                        pStmt.setString(i,"-");
+                    }
+                    pStmt.executeUpdate();
+                    pStmt.close();
+                    
+                    
+                    
                 } catch (SQLException ex) {
                     Logger.getLogger(CreateClass.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -128,11 +208,13 @@ public class JoinClass extends JFrame{
                 
                 setVisible(false);
                 try {
-                    Student student = new Student(ID);
+                    Student student = new Student(ID,Name);
                     student.setLocationRelativeTo(null);
                     student.setVisible(true);
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(CreateClass.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(JoinClass.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             

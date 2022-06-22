@@ -41,8 +41,9 @@ public class Student extends javax.swing.JFrame {
     /**
      * Creates new form Student
      */
-    public Student(int ID) throws ClassNotFoundException, SQLException{
+    public Student(int ID,String Name) throws ClassNotFoundException, SQLException{
         this.ID = ID;
+        this.Name = Name;
         conn = Connector.ConnectDatabase();
         cursor = new Cursor(Cursor.HAND_CURSOR);
         initComponents();
@@ -253,7 +254,7 @@ public class Student extends javax.swing.JFrame {
             String courseName = courseList.get(idx);
             labelCourseName[idx] = new String(courseName);
             JLabel label = new JLabel(courseName);
-            label.setBounds(2,2,100,50);
+            label.setBounds(2,2,150,50);
             label.setForeground(Color.WHITE);
             label.setFont(new Font("Tahoma", Font.BOLD, 18));
             courseListName[idx].add(label);
@@ -393,7 +394,7 @@ public class Student extends javax.swing.JFrame {
         
         setVisible(false);
         try {
-            Profile profile  = new Profile("Student",ID);
+            Profile profile  = new Profile("Student",ID,Name);
             profile.setLocationRelativeTo(null);
             profile.setVisible(true);
         } catch (ClassNotFoundException ex) {
@@ -425,7 +426,7 @@ public class Student extends javax.swing.JFrame {
         setVisible(false);
         
         try {
-            JoinClass join = new JoinClass(ID);
+            JoinClass join = new JoinClass(ID,Name);
             join.setLocationRelativeTo(null);
             join.setVisible(true);
         } catch (ClassNotFoundException ex) {
@@ -466,7 +467,7 @@ public class Student extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new Student(0).setVisible(true);
+                    new Student(0,"a").setVisible(true);
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (SQLException ex) {
@@ -501,7 +502,7 @@ public class Student extends javax.swing.JFrame {
     private com.k33ptoo.components.KGradientPanel panelKG2;
     private com.k33ptoo.components.KGradientPanel panelKG3;
     
-    private String tableName;
+    private String tableName,Name;
     private Cursor cursor;
     
     Connection conn = null;

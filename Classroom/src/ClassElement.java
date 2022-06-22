@@ -1,3 +1,8 @@
+
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -33,13 +38,13 @@ public class ClassElement extends javax.swing.JFrame {
 
         lblInfo = new javax.swing.JLabel();
         btnKG1 = new com.k33ptoo.components.KButton();
-        btnKG2 = new com.k33ptoo.components.KButton();
-        btnKG3 = new com.k33ptoo.components.KButton();
+        btnAttendance = new com.k33ptoo.components.KButton();
+        btnResult = new com.k33ptoo.components.KButton();
         btnKG4 = new com.k33ptoo.components.KButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(100, 200));
-        setPreferredSize(new java.awt.Dimension(790, 480));
+        setPreferredSize(new java.awt.Dimension(800, 500));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblInfo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -51,13 +56,23 @@ public class ClassElement extends javax.swing.JFrame {
         btnKG1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         getContentPane().add(btnKG1, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 119, -1, 118));
 
-        btnKG2.setText("ATTENDENCE");
-        btnKG2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        getContentPane().add(btnKG2, new org.netbeans.lib.awtextra.AbsoluteConstraints(308, 119, -1, 118));
+        btnAttendance.setText("ATTENDENCE");
+        btnAttendance.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnAttendance.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAttendanceMouseClicked(evt);
+            }
+        });
+        getContentPane().add(btnAttendance, new org.netbeans.lib.awtextra.AbsoluteConstraints(308, 119, -1, 118));
 
-        btnKG3.setText("RESULT");
-        btnKG3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        getContentPane().add(btnKG3, new org.netbeans.lib.awtextra.AbsoluteConstraints(572, 119, -1, 118));
+        btnResult.setText("RESULT");
+        btnResult.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnResult.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnResultMouseClicked(evt);
+            }
+        });
+        getContentPane().add(btnResult, new org.netbeans.lib.awtextra.AbsoluteConstraints(572, 119, -1, 118));
 
         btnKG4.setText("CHAT");
         btnKG4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -65,6 +80,37 @@ public class ClassElement extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAttendanceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAttendanceMouseClicked
+        // TODO add your handling code here:
+        setVisible(false);
+        
+        try {
+            Attendance atndnc = new Attendance(classCode,className,session,section);
+            atndnc.setLocationRelativeTo(null);
+            atndnc.setVisible(true);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ClassElement.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ClassElement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnAttendanceMouseClicked
+
+    private void btnResultMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResultMouseClicked
+        // TODO add your handling code here:
+        
+        setVisible(false);
+        
+        try {
+            Result result = new Result(classCode,className,session,section);
+            result.setLocationRelativeTo(null);
+            result.setVisible(true);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ClassElement.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ClassElement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnResultMouseClicked
     
     void setLabel(){
         String lbl = className + "," + session + "," + section;
@@ -108,10 +154,10 @@ public class ClassElement extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.k33ptoo.components.KButton btnAttendance;
     private com.k33ptoo.components.KButton btnKG1;
-    private com.k33ptoo.components.KButton btnKG2;
-    private com.k33ptoo.components.KButton btnKG3;
     private com.k33ptoo.components.KButton btnKG4;
+    private com.k33ptoo.components.KButton btnResult;
     private javax.swing.JLabel lblInfo;
     // End of variables declaration//GEN-END:variables
     

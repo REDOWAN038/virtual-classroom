@@ -22,8 +22,9 @@ public class CreateClass extends javax.swing.JFrame {
     /**
      * Creates new form CreateClass
      */
-    public CreateClass(int ID) throws ClassNotFoundException, SQLException{
+    public CreateClass(int ID,String Name) throws ClassNotFoundException, SQLException{
         this.ID = ID;
+        this.Name = Name;
         conn = Connector.ConnectDatabase();
         initComponents();
         init();
@@ -122,10 +123,12 @@ public class CreateClass extends javax.swing.JFrame {
         setVisible(false);
         
         try {
-            Teacher teacher = new Teacher(ID);
+            Teacher teacher = new Teacher(ID,Name);
             teacher.setLocationRelativeTo(null);
             teacher.setVisible(true);
         } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CreateClass.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
             Logger.getLogger(CreateClass.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnBackMouseClicked
@@ -151,9 +154,79 @@ public class CreateClass extends javax.swing.JFrame {
             pStmt.setString(4,fieldSection.getText());
             pStmt.execute();
             pStmt.close();
+            
+            tableName = fieldCode.getText() + "_" + "Attendance";
+        
+            String op = "CREATE TABLE " + tableName + " ("
+                            + " ID INTEGER NOT NULL, "
+                            + " Name VARCHAR(100) NOT NULL, "
+                            + " PRIMARY KEY (`ID`))";
+
+            pStmt = conn.prepareStatement(op);
+            pStmt.execute();
+            pStmt.close();
+            
+            tableName = fieldCode.getText() + "_" + "Result";
+        
+            op = "CREATE TABLE " + tableName + " ("
+                            + " ID INTEGER NOT NULL, "
+                            + " Name VARCHAR(100) NOT NULL, "
+                            + " PRIMARY KEY (`ID`))";
+
+            pStmt = conn.prepareStatement(op);
+            pStmt.execute();
+            pStmt.close();
+            
+            tableName = fieldCode.getText() + "_" + "Attendance" + "_" + "Coloumns";
+        
+            op = "CREATE TABLE " + tableName + " ("
+                            + " SI INTEGER NOT NULL, "
+                            + " COLOUMNS VARCHAR(100) NOT NULL, "
+                            + " PRIMARY KEY (`SI`))";
+
+            pStmt = conn.prepareStatement(op);
+            pStmt.execute();
+            pStmt.close();
+            
+            pStmt = conn.prepareStatement("INSERT INTO " + tableName + " VALUES(?,?)");
+            pStmt.setInt(1, 1);
+            pStmt.setString(2, "ID");
+            pStmt.execute();
+            pStmt.close();
+            
+            pStmt = conn.prepareStatement("INSERT INTO " + tableName + " VALUES(?,?)");
+            pStmt.setInt(1, 2);
+            pStmt.setString(2, "Name");
+            pStmt.execute();
+            pStmt.close();
+            
+            tableName = fieldCode.getText() + "_" + "Result" + "_" + "Coloumns";
+        
+            op = "CREATE TABLE " + tableName + " ("
+                            + " SI INTEGER NOT NULL, "
+                            + " COLOUMNS VARCHAR(100) NOT NULL, "
+                            + " PRIMARY KEY (`SI`))";
+
+            pStmt = conn.prepareStatement(op);
+            pStmt.execute();
+            pStmt.close();
+            
+            pStmt = conn.prepareStatement("INSERT INTO " + tableName + " VALUES(?,?)");
+            pStmt.setInt(1, 1);
+            pStmt.setString(2, "ID");
+            pStmt.execute();
+            pStmt.close();
+            
+            pStmt = conn.prepareStatement("INSERT INTO " + tableName + " VALUES(?,?)");
+            pStmt.setInt(1, 2);
+            pStmt.setString(2, "Name");
+            pStmt.execute();
+            pStmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(CreateClass.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        
         
         JDialog dialog = new JDialog();
         dialog.setAlwaysOnTop(true);    
@@ -162,10 +235,12 @@ public class CreateClass extends javax.swing.JFrame {
         setVisible(false);
         
         try {
-            Teacher teacher = new Teacher(ID);
+            Teacher teacher = new Teacher(ID,Name);
             teacher.setLocationRelativeTo(null);
             teacher.setVisible(true);
         } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CreateClass.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
             Logger.getLogger(CreateClass.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnConfimMouseClicked
@@ -201,7 +276,7 @@ public class CreateClass extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new CreateClass(0).setVisible(true);
+                    new CreateClass(0,"a").setVisible(true);
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(CreateClass.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (SQLException ex) {
@@ -226,6 +301,7 @@ public class CreateClass extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     
     private int ID;
+    private String Name;
     Connection conn = null;
     Statement stmt = null;
     PreparedStatement pStmt = null;

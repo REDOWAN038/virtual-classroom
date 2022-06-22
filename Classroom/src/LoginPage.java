@@ -159,6 +159,9 @@ public class LoginPage extends javax.swing.JFrame {
                     while(rs.next()){
                         int dataBaseID = rs.getInt("ID");
                         String dataBasePassword = rs.getString("Password");
+                        String fName = rs.getString("First_Name");
+                        String lName = rs.getString("Last_Name");
+                        String name = fName + " " + lName;
                         
                         if(userID==dataBaseID && userPassword.equals(dataBasePassword)){
                             found = true;
@@ -179,7 +182,7 @@ public class LoginPage extends javax.swing.JFrame {
                                 setVisible(false);
                                 Student student;
                                 try {
-                                    student = new Student(userID);
+                                    student = new Student(userID,name);
                                     student.setLocationRelativeTo(null);
                                     student.setVisible(true);
                                 } catch (ClassNotFoundException ex) {
@@ -191,7 +194,7 @@ public class LoginPage extends javax.swing.JFrame {
                                 setVisible(false);
                                 Teacher teacher;
                                 try {
-                                    teacher = new Teacher(userID);
+                                    teacher = new Teacher(userID,name);
                                     teacher.setLocationRelativeTo(null);
                                     teacher.setVisible(true);
                                 } catch (ClassNotFoundException ex) {

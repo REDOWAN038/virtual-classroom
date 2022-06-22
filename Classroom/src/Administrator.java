@@ -53,36 +53,36 @@ public class Administrator extends JFrame{
         menuDeposit.setCursor(cursor);
         menuBar.add(menuDeposit);
         
-        menuDeposit.addMouseListener(new MouseListener(){
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                setVisible(false);
-                try {
-                    Deposit deposit = new Deposit();
-                    deposit.setLocationRelativeTo(null);
-                    deposit.setVisible(true);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(Administrator.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-            }
-            
-        });
+//        menuDeposit.addMouseListener(new MouseListener(){
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                setVisible(false);
+//                try {
+//                    Deposit deposit = new Deposit();
+//                    deposit.setLocationRelativeTo(null);
+//                    deposit.setVisible(true);
+//                } catch (ClassNotFoundException ex) {
+//                    Logger.getLogger(Administrator.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            }
+//
+//            @Override
+//            public void mousePressed(MouseEvent e) {
+//            }
+//
+//            @Override
+//            public void mouseReleased(MouseEvent e) {
+//            }
+//
+//            @Override
+//            public void mouseEntered(MouseEvent e) {
+//            }
+//
+//            @Override
+//            public void mouseExited(MouseEvent e) {
+//            }
+//            
+//        });
         
         menuSignOut = new JMenu("Sign Out");     
         menuSignOut.setCursor(cursor);
