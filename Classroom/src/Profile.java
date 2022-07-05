@@ -309,10 +309,7 @@ public class Profile extends JFrame{
                 fieldGender.setText(gender);
                 fieldReligion.setText(religion);
                 
-                if(type.equals("Student")){
-                    float blnc = rs.getFloat("Balance");
-                    fieldBalance.setText(Float.toString(blnc));
-                }
+                
                 
                 break;
             }

@@ -235,7 +235,7 @@ public class SignUp extends javax.swing.JFrame {
                 btnClearActionPerformed(evt);
             }
         });
-        getContentPane().add(btnClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 517, 98, 30));
+        getContentPane().add(btnClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 517, 101, -1));
 
         btnConfirm.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btnConfirm.setText("Confirm");
@@ -245,7 +245,7 @@ public class SignUp extends javax.swing.JFrame {
                 btnConfirmActionPerformed(evt);
             }
         });
-        getContentPane().add(btnConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(605, 517, -1, -1));
+        getContentPane().add(btnConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(605, 517, 110, -1));
 
         lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/signup.png"))); // NOI18N
 
@@ -260,7 +260,7 @@ public class SignUp extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -340,23 +340,7 @@ public class SignUp extends javax.swing.JFrame {
         } else {
             try {
 
-                if (choiceType.equals("Student")) {
-                    stmt = conn.prepareStatement("INSERT INTO " + choiceType + " VALUES(?,?,?,?,?,?,?,?,?,?,?)");
-                    stmt.setInt(1, id);
-                    stmt.setString(2, fName);
-                    stmt.setString(3, lName);
-                    stmt.setString(4, choiceDept);
-                    stmt.setString(5, choiceSession);
-                    stmt.setString(6, password);
-                    stmt.setString(7, email);
-                    stmt.setString(8, phone);
-                    stmt.setString(9, choiceGender);
-                    stmt.setString(10, choiceReligion);
-                    stmt.setDouble(11, 0.0);
-                    stmt.execute();
-                    stmt.close();
-
-                } else {
+                
                     stmt = conn.prepareStatement("INSERT INTO " + choiceType + " VALUES(?,?,?,?,?,?,?,?,?,?)");
                     stmt.setInt(1, id);
                     stmt.setString(2, fName);
@@ -370,7 +354,7 @@ public class SignUp extends javax.swing.JFrame {
                     stmt.setString(10, choiceReligion);
                     stmt.execute();
                     stmt.close();
-                }
+                
 
                 String tableName = "_" + fieldID.getText();
                 String op = "CREATE TABLE " + tableName + " ("

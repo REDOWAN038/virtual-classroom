@@ -164,3 +164,5 @@ public class ClassElement extends javax.swing.JFrame {
     private String classCode,className,session,section;
 
 }
+///Applications/NetBeans/Apache NetBeans 13.app/Contents/Resources/NetBeans/netbeans/java/modules/ext/AbsoluteLayout.jar
+//jar:nbinst://org.netbeans.modules.form/modules/ext/AbsoluteLayout.jar!/

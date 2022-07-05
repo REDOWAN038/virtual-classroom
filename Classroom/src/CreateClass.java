@@ -50,10 +50,12 @@ public class CreateClass extends javax.swing.JFrame {
         fieldSection = new javax.swing.JTextField();
         btnBack = new javax.swing.JButton();
         btnConfim = new javax.swing.JButton();
+        kGradientPanel1 = new com.k33ptoo.components.KGradientPanel();
 
         jLabel1.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(204, 204, 255));
         setLocation(new java.awt.Point(0, 0));
         setMinimumSize(new java.awt.Dimension(400, 400));
         setPreferredSize(new java.awt.Dimension(600, 500));
@@ -108,6 +110,10 @@ public class CreateClass extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnConfim, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 350, 110, 30));
+
+        kGradientPanel1.setkEndColor(new java.awt.Color(255, 102, 255));
+        kGradientPanel1.setkStartColor(new java.awt.Color(102, 102, 255));
+        getContentPane().add(kGradientPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 500));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -294,6 +300,7 @@ public class CreateClass extends javax.swing.JFrame {
     private javax.swing.JTextField fieldSection;
     private javax.swing.JTextField fieldSession;
     private javax.swing.JLabel jLabel1;
+    private com.k33ptoo.components.KGradientPanel kGradientPanel1;
     private javax.swing.JLabel lblCode;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblSection;

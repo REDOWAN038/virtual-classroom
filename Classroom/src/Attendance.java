@@ -44,7 +44,7 @@ public class Attendance extends JFrame{
     private JPanel panel1,panel2;
     private JTextField fieldNew,fieldUpdate;
     private JButton btnNew,btnEdit,btnBack,btnSave,btnUpdate;
-    private Font f;
+    private Font f,f1;
     private Cursor cursor;
     
     Connection conn = null;
@@ -62,6 +62,7 @@ public class Attendance extends JFrame{
         this.courseCode = courseCode;
         conn = Connector.ConnectDatabase();
         f = new Font("Tahoma",Font.BOLD,14);
+        f1 = new Font("Tahoma",Font.PLAIN,14);
         cursor = new Cursor(Cursor.HAND_CURSOR);
     
         
@@ -143,12 +144,12 @@ public class Attendance extends JFrame{
         panel2.setBackground(Color.LIGHT_GRAY);
         
         fieldNew = new JTextField("Enter Coloumn Name You Want to Create");
-        fieldNew.setFont(f);
+        fieldNew.setFont(f1);
         fieldNew.setBounds(150,15,350,30);
         panel2.add(fieldNew);
         
         fieldUpdate = new JTextField("Enter Coloumn Name You Want to Update");
-        fieldUpdate.setFont(f);
+        fieldUpdate.setFont(f1);
         fieldUpdate.setBounds(150,60,350,30);
         panel2.add(fieldUpdate);
         
