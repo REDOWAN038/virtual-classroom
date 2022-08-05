@@ -307,7 +307,7 @@ public class Teacher extends javax.swing.JFrame {
                     String session = courseListSession.get(idx1);
                     String section = courseListSection.get(idx1);
                     
-                    ClassElement ce = new ClassElement(courseCode,courseName,session,section);
+                    ClassElement ce = new ClassElement("Teacher",courseCode,courseName,session,section);
                     ce.setLocationRelativeTo(null);
                     ce.setVisible(true);
                 }

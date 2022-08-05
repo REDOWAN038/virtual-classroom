@@ -17,7 +17,8 @@ public class ClassElement extends javax.swing.JFrame {
     /**
      * Creates new form ClassName
      */
-    public ClassElement(String classCode,String className,String session, String section) {
+    public ClassElement(String type,String classCode,String className,String session, String section) {
+        this.type = type;
         this.classCode = classCode;
         this.className = className;
         this.session = session;
@@ -54,6 +55,10 @@ public class ClassElement extends javax.swing.JFrame {
 
         btnKG1.setText("STREAM");
         btnKG1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnKG1.setkBackGroundColor(new java.awt.Color(255, 255, 102));
+        btnKG1.setkEndColor(new java.awt.Color(255, 255, 102));
+        btnKG1.setkHoverEndColor(new java.awt.Color(255, 255, 153));
+        btnKG1.setkStartColor(new java.awt.Color(255, 51, 204));
         getContentPane().add(btnKG1, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 119, -1, 118));
 
         btnAttendance.setText("ATTENDENCE");
@@ -85,14 +90,28 @@ public class ClassElement extends javax.swing.JFrame {
         // TODO add your handling code here:
         setVisible(false);
         
-        try {
+        if(type.equals("Teacher")){
+            try {
             Attendance atndnc = new Attendance(classCode,className,session,section);
             atndnc.setLocationRelativeTo(null);
             atndnc.setVisible(true);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ClassElement.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(ClassElement.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ClassElement.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(ClassElement.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        else if(type.equals("Student")){
+            try {
+            AttendanceSt ast = new AttendanceSt(classCode,className,session,section);
+            ast.setLocationRelativeTo(null);
+            ast.setVisible(true);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ClassElement.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(ClassElement.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_btnAttendanceMouseClicked
 
@@ -101,14 +120,28 @@ public class ClassElement extends javax.swing.JFrame {
         
         setVisible(false);
         
-        try {
+        if(type.equals("Teacher")){
+            try {
             Result result = new Result(classCode,className,session,section);
             result.setLocationRelativeTo(null);
             result.setVisible(true);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ClassElement.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(ClassElement.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ClassElement.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(ClassElement.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        else if(type.equals("Student")){
+            try {
+            ResultSt rst = new ResultSt(classCode,className,session,section);
+            rst.setLocationRelativeTo(null);
+            rst.setVisible(true);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ClassElement.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(ClassElement.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_btnResultMouseClicked
     
@@ -148,7 +181,7 @@ public class ClassElement extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ClassElement("a","a","a","a").setVisible(true);
+                new ClassElement("a","a","a","a","a").setVisible(true);
             }
         });
     }
@@ -161,7 +194,7 @@ public class ClassElement extends javax.swing.JFrame {
     private javax.swing.JLabel lblInfo;
     // End of variables declaration//GEN-END:variables
     
-    private String classCode,className,session,section;
+    private String classCode,className,session,section,type;
 
 }
 ///Applications/NetBeans/Apache NetBeans 13.app/Contents/Resources/NetBeans/netbeans/java/modules/ext/AbsoluteLayout.jar

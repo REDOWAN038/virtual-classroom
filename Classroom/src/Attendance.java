@@ -318,7 +318,7 @@ public class Attendance extends JFrame{
             public void mouseClicked(MouseEvent e) {
                 setVisible(false);
                 
-                ClassElement ce = new ClassElement(courseCode,className,session,section);
+                ClassElement ce = new ClassElement("Teacher",courseCode,className,session,section);
                 ce.setLocationRelativeTo(null);
                 ce.setVisible(true);
             }
