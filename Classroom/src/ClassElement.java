@@ -17,6 +17,10 @@ public class ClassElement extends javax.swing.JFrame {
     /**
      * Creates new form ClassName
      */
+    public ClassElement(){
+        
+    }
+    
     public ClassElement(String type,String classCode,String className,String session, String section) {
         this.type = type;
         this.classCode = classCode;
@@ -42,6 +46,7 @@ public class ClassElement extends javax.swing.JFrame {
         btnAttendance = new com.k33ptoo.components.KButton();
         btnResult = new com.k33ptoo.components.KButton();
         btnChat = new com.k33ptoo.components.KButton();
+        btnWhiteboard = new com.k33ptoo.components.KButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(100, 200));
@@ -87,6 +92,15 @@ public class ClassElement extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnChat, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 297, -1, 118));
+
+        btnWhiteboard.setText("WhiteBoard");
+        btnWhiteboard.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnWhiteboard.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnWhiteboardMouseClicked(evt);
+            }
+        });
+        getContentPane().add(btnWhiteboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(308, 297, -1, 118));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -167,6 +181,15 @@ public class ClassElement extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_btnChatMouseClicked
+
+    private void btnWhiteboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnWhiteboardMouseClicked
+        // TODO add your handling code here:
+        
+        setVisible(false);
+        WhiteBoard board = new WhiteBoard(type,classCode,className,session,section);
+        board.setLocationRelativeTo(null);
+        board.setVisible(true);
+    }//GEN-LAST:event_btnWhiteboardMouseClicked
     
     void setLabel(){
         String lbl = className + "," + session + "," + section;
@@ -222,6 +245,7 @@ public class ClassElement extends javax.swing.JFrame {
     private com.k33ptoo.components.KButton btnChat;
     private com.k33ptoo.components.KButton btnKG1;
     private com.k33ptoo.components.KButton btnResult;
+    private com.k33ptoo.components.KButton btnWhiteboard;
     private javax.swing.JLabel lblInfo;
     // End of variables declaration//GEN-END:variables
     
