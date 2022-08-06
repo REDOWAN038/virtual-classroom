@@ -60,7 +60,7 @@ public class Chat extends javax.swing.JFrame {
             attr = new SimpleAttributeSet();
             StyleConstants.setFontFamily(attr, "Tahome");
             StyleConstants.setFontSize(attr, 18);
-            StyleConstants.setForeground(attr, Color.black);
+            StyleConstants.setForeground(attr, Color.white);
             StyleConstants.setBold(attr, true);
             
             dataBaseName = dataBaseName + ":";
@@ -91,18 +91,20 @@ public class Chat extends javax.swing.JFrame {
             attr = new SimpleAttributeSet();
             StyleConstants.setFontFamily(attr, "Tahome");
             StyleConstants.setFontSize(attr, 18);
-            StyleConstants.setForeground(attr, Color.white);
+            //StyleConstants.setForeground(attr, Color.black);
             
             //StyleConstants.setBold(attr, true);
             
             if(ID==dataBaseID){
                 StyleConstants.setAlignment(attr,StyleConstants.ALIGN_RIGHT);
-                StyleConstants.setBackground(attr, Color.red);
+                //StyleConstants.setBackground(attr, Color.ORANGE);
+                StyleConstants.setForeground(attr, Color.ORANGE);
             }
             
             else{
                 StyleConstants.setAlignment(attr,StyleConstants.ALIGN_LEFT);
-                StyleConstants.setBackground(attr, Color.green);
+                //StyleConstants.setBackground(attr, Color.PINK);
+                StyleConstants.setForeground(attr, Color.PINK);
             }
             
             textPane.setParagraphAttributes(attr, true);
@@ -115,7 +117,7 @@ public class Chat extends javax.swing.JFrame {
             
             attr = new SimpleAttributeSet();
             try {
-                doc.insertString(doc.getLength(),"\n", attr);
+                doc.insertString(doc.getLength(),"\n\n", attr);
             } catch (BadLocationException ex) {
                 Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -135,8 +137,7 @@ public class Chat extends javax.swing.JFrame {
     private void initComponents() {
 
         panel1 = new javax.swing.JPanel();
-        lblInfo = new javax.swing.JLabel();
-        btnBack = new javax.swing.JButton();
+        btnRefresh = new javax.swing.JButton();
         panel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         textPane = new javax.swing.JTextPane();
@@ -144,43 +145,48 @@ public class Chat extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         textArea = new javax.swing.JTextArea();
         btnSend = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
+        lblInfo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lblInfo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lblInfo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblInfo.setText("CSE234,both,2019-20");
-
-        btnBack.setText("jButton1");
+        btnRefresh.setBackground(new java.awt.Color(204, 204, 204));
+        btnRefresh.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnRefresh.setText("Refresh");
+        btnRefresh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRefresh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRefreshMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
         panel1.setLayout(panel1Layout);
         panel1Layout.setHorizontalGroup(
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(btnBack)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(292, 292, 292))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnRefresh)
+                .addGap(63, 63, 63))
         );
         panel1Layout.setVerticalGroup(
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
-                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
-                    .addComponent(btnBack))
-                .addContainerGap())
+            .addGroup(panel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnRefresh)
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
-        textPane.setBackground(new java.awt.Color(204, 204, 204));
+        textPane.setBackground(new java.awt.Color(51, 51, 0));
         jScrollPane2.setViewportView(textPane);
 
         javax.swing.GroupLayout panel2Layout = new javax.swing.GroupLayout(panel2);
         panel2.setLayout(panel2Layout);
         panel2Layout.setHorizontalGroup(
             panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2)
+            .addGroup(panel2Layout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 733, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 1, Short.MAX_VALUE))
         );
         panel2Layout.setVerticalGroup(
             panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,7 +194,7 @@ public class Chat extends javax.swing.JFrame {
         );
 
         textArea.setColumns(20);
-        textArea.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        textArea.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         textArea.setLineWrap(true);
         textArea.setRows(5);
         textArea.setWrapStyleWord(true);
@@ -207,10 +213,10 @@ public class Chat extends javax.swing.JFrame {
             panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 732, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39)
                 .addComponent(btnSend, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panel3Layout.setVerticalGroup(
             panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -218,24 +224,50 @@ public class Chat extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(panel3Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addGap(30, 30, 30)
                 .addComponent(btnSend, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        btnBack.setBackground(new java.awt.Color(204, 204, 204));
+        btnBack.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnBack.setText("Back");
+        btnBack.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBack.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBackMouseClicked(evt);
+            }
+        });
+
+        lblInfo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblInfo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblInfo.setText("CSE234,both,2019-20");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(panel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(panel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addComponent(btnBack)
+                .addGap(102, 102, 102)
+                .addComponent(lblInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnBack)
+                            .addComponent(lblInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(panel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
                 .addComponent(panel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -249,12 +281,27 @@ public class Chat extends javax.swing.JFrame {
         
         String message = textArea.getText();
         String tableName = courseCode + "_Chat";
+        int count = 0;
         
         try {
-            pStmt = conn.prepareStatement("INSERT INTO " + tableName + " VALUES(?,?,?)");
-            pStmt.setInt(1, ID);
-            pStmt.setString(2,Name);
-            pStmt.setString(3, message);
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM "+tableName);
+            
+            while(rs.next()){
+                count++;
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        try {
+            pStmt = conn.prepareStatement("INSERT INTO " + tableName + " VALUES(?,?,?,?)");
+            pStmt.setInt(1, count+1);
+            pStmt.setInt(2, ID);
+            pStmt.setString(3,Name);
+            pStmt.setString(4, message);
             pStmt.execute();
             pStmt.close();
         } catch (SQLException ex) {
@@ -272,6 +319,31 @@ public class Chat extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_btnSendMouseClicked
+
+    private void btnBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseClicked
+        // TODO add your handling code here:
+        
+        setVisible(false);
+        ClassElement ce = new ClassElement(type,ID,Name,courseCode,courseName,session,section);
+        ce.setLocationRelativeTo(null);
+        ce.setVisible(true);
+    }//GEN-LAST:event_btnBackMouseClicked
+
+    private void btnRefreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRefreshMouseClicked
+        // TODO add your handling code here:
+        setVisible(false);
+        Chat chat;
+        try {
+            chat = new Chat(type,ID,Name,courseCode,courseName,session,section);
+            chat.setLocationRelativeTo(null);
+            chat.setVisible(true);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_btnRefreshMouseClicked
 
     /**
      * @param args the command line arguments
@@ -316,6 +388,7 @@ public class Chat extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnSend;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

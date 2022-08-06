@@ -19,8 +19,10 @@ public class WhiteBoard extends javax.swing.JFrame {
     /**
      * Creates new form WhiteBoard
      */
-    public WhiteBoard(String type,String classCode,String className,String session, String section) {
+    public WhiteBoard(String type,int ID,String Name,String classCode,String className,String session, String section) {
         this.type = type;
+        this.ID = ID;
+        this.Name = Name;
         this.classCode = classCode;
         this.className = className;
         this.session = session;
@@ -226,7 +228,7 @@ public class WhiteBoard extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         setVisible(false);
-        ClassElement ce = new ClassElement(type,classCode,className,session,section);
+        ClassElement ce = new ClassElement(type,ID,Name,classCode,className,session,section);
         ce.setLocationRelativeTo(null);
         ce.setVisible(true);
     }//GEN-LAST:event_btnBackMouseClicked
@@ -268,7 +270,7 @@ public class WhiteBoard extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new WhiteBoard("a","a","a","a","a").setVisible(true);
+                new WhiteBoard("a",0,"a","a","a","a","a").setVisible(true);
             }
         });
     }
@@ -288,6 +290,8 @@ public class WhiteBoard extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     
     private String classCode,className,session,section,type;
+    private String Name;
+    private int ID;
     private Color c;
     private int size = 8;
 }

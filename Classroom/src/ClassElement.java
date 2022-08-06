@@ -21,8 +21,10 @@ public class ClassElement extends javax.swing.JFrame {
         
     }
     
-    public ClassElement(String type,String classCode,String className,String session, String section) {
+    public ClassElement(String type,int ID,String Name,String classCode,String className,String session, String section) {
         this.type = type;
+        this.ID = ID;
+        this.Name = Name;
         this.classCode = classCode;
         this.className = className;
         this.session = session;
@@ -186,7 +188,7 @@ public class ClassElement extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         setVisible(false);
-        WhiteBoard board = new WhiteBoard(type,classCode,className,session,section);
+        WhiteBoard board = new WhiteBoard(type,ID,Name,classCode,className,session,section);
         board.setLocationRelativeTo(null);
         board.setVisible(true);
     }//GEN-LAST:event_btnWhiteboardMouseClicked
@@ -196,13 +198,6 @@ public class ClassElement extends javax.swing.JFrame {
         lblInfo.setText(lbl);
     }
     
-    public void setName(String Name){
-        this.Name = Name;
-    }
-    
-    public void setID(int ID){
-        this.ID = ID;
-    }
     
     /**
      * @param args the command line arguments
@@ -235,7 +230,7 @@ public class ClassElement extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ClassElement("a","a","a","a","a").setVisible(true);
+                new ClassElement("a",0,"a","a","a","a","a").setVisible(true);
             }
         });
     }

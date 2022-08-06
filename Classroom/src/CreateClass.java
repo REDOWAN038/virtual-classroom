@@ -228,6 +228,20 @@ public class CreateClass extends javax.swing.JFrame {
             pStmt.setString(2, "Name");
             pStmt.execute();
             pStmt.close();
+            
+            tableName = fieldCode.getText() + "_Chat";
+            
+            op = "CREATE TABLE " + tableName + " ("
+                    + " SI INTEGER NOT NULL, "
+                    + " ID INTEGER NOT NULL, "
+                    + " Name VARCHAR(30) NOT NULL, "
+                    + " Message VARCHAR(1000) NOT NULL, "
+                    + " PRIMARY KEY (`SI`))";
+            
+            pStmt = conn.prepareStatement(op);
+            pStmt.execute();
+            pStmt.close();
+            
         } catch (SQLException ex) {
             Logger.getLogger(CreateClass.class.getName()).log(Level.SEVERE, null, ex);
         }
