@@ -41,7 +41,7 @@ public class ClassElement extends javax.swing.JFrame {
         btnKG1 = new com.k33ptoo.components.KButton();
         btnAttendance = new com.k33ptoo.components.KButton();
         btnResult = new com.k33ptoo.components.KButton();
-        btnKG4 = new com.k33ptoo.components.KButton();
+        btnChat = new com.k33ptoo.components.KButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(100, 200));
@@ -79,9 +79,14 @@ public class ClassElement extends javax.swing.JFrame {
         });
         getContentPane().add(btnResult, new org.netbeans.lib.awtextra.AbsoluteConstraints(572, 119, -1, 118));
 
-        btnKG4.setText("CHAT");
-        btnKG4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        getContentPane().add(btnKG4, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 297, -1, 118));
+        btnChat.setText("CHAT");
+        btnChat.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnChat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnChatMouseClicked(evt);
+            }
+        });
+        getContentPane().add(btnChat, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 297, -1, 118));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -144,10 +149,36 @@ public class ClassElement extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnResultMouseClicked
+
+    private void btnChatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnChatMouseClicked
+        // TODO add your handling code here:
+        
+        setVisible(false);
+        
+        
+        try {
+            Chat chat = new Chat(type,ID,Name,classCode,className,session,section);
+            chat.setLocationRelativeTo(null);
+            chat.setVisible(true);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ClassElement.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ClassElement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_btnChatMouseClicked
     
     void setLabel(){
         String lbl = className + "," + session + "," + section;
         lblInfo.setText(lbl);
+    }
+    
+    public void setName(String Name){
+        this.Name = Name;
+    }
+    
+    public void setID(int ID){
+        this.ID = ID;
     }
     
     /**
@@ -188,13 +219,15 @@ public class ClassElement extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.k33ptoo.components.KButton btnAttendance;
+    private com.k33ptoo.components.KButton btnChat;
     private com.k33ptoo.components.KButton btnKG1;
-    private com.k33ptoo.components.KButton btnKG4;
     private com.k33ptoo.components.KButton btnResult;
     private javax.swing.JLabel lblInfo;
     // End of variables declaration//GEN-END:variables
     
     private String classCode,className,session,section,type;
+    private String Name;
+    private int ID;
 
 }
 ///Applications/NetBeans/Apache NetBeans 13.app/Contents/Resources/NetBeans/netbeans/java/modules/ext/AbsoluteLayout.jar
