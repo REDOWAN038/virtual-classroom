@@ -38,7 +38,7 @@ import javax.swing.table.TableCellRenderer;
  */
 public class ResultSt extends JFrame{
     private Container c;
-    private String courseCode,choice;
+    private String courseCode,choice,Name;
     private JTable table;
     private JScrollPane scroll;
     private JPanel panel1,panel2;
@@ -46,19 +46,22 @@ public class ResultSt extends JFrame{
     private JButton btnNew,btnRefresh,btnBack,btnSave,btnUpdate;
     private Font f,f1;
     private Cursor cursor;
+    private int ID;
     
     Connection conn = null;
     Statement stmt = null;
     PreparedStatement pStmt = null;
     ResultSet rs = null;
     
-    ResultSt(String courseCode,String className,String session,String section) throws ClassNotFoundException, SQLException{
+    ResultSt(int ID,String Name,String courseCode,String className,String session,String section) throws ClassNotFoundException, SQLException{
         c = this.getContentPane();
         c.setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setBounds(100,50,1000,500);
         
+        this.ID = ID;
+        this.Name = Name;
         this.courseCode = courseCode;
         conn = Connector.ConnectDatabase();
         f = new Font("Tahoma",Font.BOLD,14);
@@ -156,7 +159,7 @@ public class ResultSt extends JFrame{
             public void mouseClicked(MouseEvent e) {
                 setVisible(false);
                 
-                ClassElement ce = new ClassElement("Student",courseCode,className,session,section);
+                ClassElement ce = new ClassElement("Student",ID,Name,courseCode,className,session,section);
                 ce.setLocationRelativeTo(null);
                 ce.setVisible(true);
             }
@@ -192,7 +195,7 @@ public class ResultSt extends JFrame{
                 setVisible(false);
                 
                 try {
-                    ResultSt rst = new ResultSt(courseCode,className,session,section);
+                    ResultSt rst = new ResultSt(ID,Name,courseCode,className,session,section);
                     rst.setLocationRelativeTo(null);
                     rst.setVisible(true);
                     } catch (ClassNotFoundException ex) {

@@ -221,7 +221,7 @@ public class WhiteBoard extends javax.swing.JFrame {
     private void btnWhiteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnWhiteMouseClicked
         // TODO add your handling code here:
         c = new Color(255,255,255);
-        size+=2;
+        size+=4;
     }//GEN-LAST:event_btnWhiteMouseClicked
 
     private void btnBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseClicked

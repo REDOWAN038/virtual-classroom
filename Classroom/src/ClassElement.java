@@ -43,66 +43,120 @@ public class ClassElement extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLayeredPane1 = new javax.swing.JLayeredPane();
         lblInfo = new javax.swing.JLabel();
-        btnKG1 = new com.k33ptoo.components.KButton();
+        btnStream = new com.k33ptoo.components.KButton();
         btnAttendance = new com.k33ptoo.components.KButton();
         btnResult = new com.k33ptoo.components.KButton();
         btnChat = new com.k33ptoo.components.KButton();
         btnWhiteboard = new com.k33ptoo.components.KButton();
+        btnBack = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        lblImage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(100, 200));
         setPreferredSize(new java.awt.Dimension(800, 500));
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().setLayout(null);
 
         lblInfo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblInfo.setForeground(new java.awt.Color(255, 153, 153));
         lblInfo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblInfo.setText("CSE 233(OOP),2019-20,both");
-        getContentPane().add(lblInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(215, 61, 323, -1));
+        getContentPane().add(lblInfo);
+        lblInfo.setBounds(260, 30, 323, 22);
 
-        btnKG1.setText("STREAM");
-        btnKG1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        btnKG1.setkBackGroundColor(new java.awt.Color(255, 255, 102));
-        btnKG1.setkEndColor(new java.awt.Color(255, 255, 102));
-        btnKG1.setkHoverEndColor(new java.awt.Color(255, 255, 153));
-        btnKG1.setkStartColor(new java.awt.Color(255, 51, 204));
-        getContentPane().add(btnKG1, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 119, -1, 118));
+        btnStream.setText("STREAM");
+        btnStream.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnStream.setkBackGroundColor(new java.awt.Color(255, 255, 102));
+        btnStream.setkEndColor(new java.awt.Color(255, 255, 102));
+        btnStream.setkHoverEndColor(new java.awt.Color(255, 255, 255));
+        btnStream.setkHoverForeGround(new java.awt.Color(0, 0, 0));
+        btnStream.setkHoverStartColor(new java.awt.Color(255, 255, 255));
+        btnStream.setkStartColor(new java.awt.Color(255, 51, 204));
+        getContentPane().add(btnStream);
+        btnStream.setBounds(38, 119, 185, 118);
 
         btnAttendance.setText("ATTENDENCE");
         btnAttendance.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnAttendance.setkEndColor(new java.awt.Color(255, 153, 153));
+        btnAttendance.setkHoverEndColor(new java.awt.Color(255, 255, 255));
+        btnAttendance.setkHoverForeGround(new java.awt.Color(0, 0, 0));
+        btnAttendance.setkHoverStartColor(new java.awt.Color(255, 255, 255));
+        btnAttendance.setkStartColor(new java.awt.Color(255, 51, 51));
         btnAttendance.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnAttendanceMouseClicked(evt);
             }
         });
-        getContentPane().add(btnAttendance, new org.netbeans.lib.awtextra.AbsoluteConstraints(308, 119, -1, 118));
+        getContentPane().add(btnAttendance);
+        btnAttendance.setBounds(308, 119, 185, 118);
 
         btnResult.setText("RESULT");
         btnResult.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnResult.setkEndColor(new java.awt.Color(255, 51, 255));
+        btnResult.setkHoverEndColor(new java.awt.Color(255, 255, 255));
+        btnResult.setkHoverForeGround(new java.awt.Color(0, 0, 0));
+        btnResult.setkHoverStartColor(new java.awt.Color(255, 255, 255));
+        btnResult.setkStartColor(new java.awt.Color(0, 0, 204));
         btnResult.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnResultMouseClicked(evt);
             }
         });
-        getContentPane().add(btnResult, new org.netbeans.lib.awtextra.AbsoluteConstraints(572, 119, -1, 118));
+        getContentPane().add(btnResult);
+        btnResult.setBounds(572, 119, 185, 118);
 
         btnChat.setText("CHAT");
         btnChat.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnChat.setkEndColor(new java.awt.Color(255, 0, 255));
+        btnChat.setkHoverEndColor(new java.awt.Color(255, 255, 255));
+        btnChat.setkHoverForeGround(new java.awt.Color(0, 0, 0));
+        btnChat.setkHoverStartColor(new java.awt.Color(255, 255, 255));
+        btnChat.setkStartColor(new java.awt.Color(255, 255, 0));
         btnChat.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnChatMouseClicked(evt);
             }
         });
-        getContentPane().add(btnChat, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 297, -1, 118));
+        getContentPane().add(btnChat);
+        btnChat.setBounds(38, 297, 185, 118);
 
         btnWhiteboard.setText("WhiteBoard");
         btnWhiteboard.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnWhiteboard.setkBackGroundColor(new java.awt.Color(51, 0, 204));
+        btnWhiteboard.setkEndColor(new java.awt.Color(51, 51, 255));
+        btnWhiteboard.setkHoverEndColor(new java.awt.Color(255, 255, 255));
+        btnWhiteboard.setkHoverForeGround(new java.awt.Color(0, 0, 0));
+        btnWhiteboard.setkHoverStartColor(new java.awt.Color(255, 255, 255));
+        btnWhiteboard.setkStartColor(new java.awt.Color(51, 255, 204));
         btnWhiteboard.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnWhiteboardMouseClicked(evt);
             }
         });
-        getContentPane().add(btnWhiteboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(308, 297, -1, 118));
+        getContentPane().add(btnWhiteboard);
+        btnWhiteboard.setBounds(308, 297, 185, 118);
+
+        btnBack.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnBack.setText("Back");
+        btnBack.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBack.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBackMouseClicked(evt);
+            }
+        });
+        getContentPane().add(btnBack);
+        btnBack.setBounds(40, 30, 72, 23);
+
+        jPanel1.setLayout(null);
+
+        lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/greenboard.png"))); // NOI18N
+        jPanel1.add(lblImage);
+        lblImage.setBounds(0, 0, 800, 500);
+
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(0, 0, 810, 500);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -113,7 +167,7 @@ public class ClassElement extends javax.swing.JFrame {
         
         if(type.equals("Teacher")){
             try {
-            Attendance atndnc = new Attendance(classCode,className,session,section);
+            Attendance atndnc = new Attendance(ID,Name,classCode,className,session,section);
             atndnc.setLocationRelativeTo(null);
             atndnc.setVisible(true);
             } catch (ClassNotFoundException ex) {
@@ -125,7 +179,7 @@ public class ClassElement extends javax.swing.JFrame {
         
         else if(type.equals("Student")){
             try {
-            AttendanceSt ast = new AttendanceSt(classCode,className,session,section);
+            AttendanceSt ast = new AttendanceSt(ID,Name,classCode,className,session,section);
             ast.setLocationRelativeTo(null);
             ast.setVisible(true);
             } catch (ClassNotFoundException ex) {
@@ -143,7 +197,7 @@ public class ClassElement extends javax.swing.JFrame {
         
         if(type.equals("Teacher")){
             try {
-            Result result = new Result(classCode,className,session,section);
+            Result result = new Result(ID,Name,classCode,className,session,section);
             result.setLocationRelativeTo(null);
             result.setVisible(true);
             } catch (ClassNotFoundException ex) {
@@ -155,7 +209,7 @@ public class ClassElement extends javax.swing.JFrame {
         
         else if(type.equals("Student")){
             try {
-            ResultSt rst = new ResultSt(classCode,className,session,section);
+            ResultSt rst = new ResultSt(ID,Name,classCode,className,session,section);
             rst.setLocationRelativeTo(null);
             rst.setVisible(true);
             } catch (ClassNotFoundException ex) {
@@ -192,6 +246,34 @@ public class ClassElement extends javax.swing.JFrame {
         board.setLocationRelativeTo(null);
         board.setVisible(true);
     }//GEN-LAST:event_btnWhiteboardMouseClicked
+
+    private void btnBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseClicked
+        // TODO add your handling code here:
+        
+        if(type.equals("Student")){
+            try {
+                Student st = new Student(ID,Name);
+                st.setLocationRelativeTo(null);
+                st.setVisible(true);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ClassElement.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(ClassElement.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        else{
+            try {
+                Teacher tc = new Teacher(ID,Name);
+                tc.setLocationRelativeTo(null);
+                tc.setVisible(true);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ClassElement.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(ClassElement.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_btnBackMouseClicked
     
     void setLabel(){
         String lbl = className + "," + session + "," + section;
@@ -237,10 +319,14 @@ public class ClassElement extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.k33ptoo.components.KButton btnAttendance;
+    private javax.swing.JButton btnBack;
     private com.k33ptoo.components.KButton btnChat;
-    private com.k33ptoo.components.KButton btnKG1;
     private com.k33ptoo.components.KButton btnResult;
+    private com.k33ptoo.components.KButton btnStream;
     private com.k33ptoo.components.KButton btnWhiteboard;
+    private javax.swing.JLayeredPane jLayeredPane1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblImage;
     private javax.swing.JLabel lblInfo;
     // End of variables declaration//GEN-END:variables
     

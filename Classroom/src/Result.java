@@ -38,7 +38,7 @@ import javax.swing.table.TableCellRenderer;
  */
 public class Result extends JFrame{
     private Container c;
-    private String courseCode,choice;
+    private String courseCode,choice,Name;
     private JTable table;
     private JScrollPane scroll;
     private JPanel panel1,panel2;
@@ -46,19 +46,22 @@ public class Result extends JFrame{
     private JButton btnNew,btnEdit,btnBack,btnSave,btnUpdate;
     private Font f,f1;
     private Cursor cursor;
+    private int ID;
     
     Connection conn = null;
     Statement stmt = null;
     PreparedStatement pStmt = null;
     ResultSet rs = null;
     
-    Result(String courseCode,String className,String session,String section) throws ClassNotFoundException, SQLException{
+    Result(int ID,String Name,String courseCode,String className,String session,String section) throws ClassNotFoundException, SQLException{
         c = this.getContentPane();
         c.setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setBounds(100,50,1000,600);
         
+        this.ID = ID;
+        this.Name = Name;
         this.courseCode = courseCode;
         conn = Connector.ConnectDatabase();
         f = new Font("Tahoma",Font.BOLD,14);
@@ -190,7 +193,7 @@ public class Result extends JFrame{
                 setVisible(false);
                 
                 try {
-                    Result result = new Result(courseCode,className,session,section);
+                    Result result = new Result(ID,Name,courseCode,className,session,section);
                     result.setLocationRelativeTo(null);
                     result.setVisible(true);
                 } catch (ClassNotFoundException ex) {
@@ -267,7 +270,7 @@ public class Result extends JFrame{
                     setVisible(false);
                     
                     try {
-                        Result result = new Result(courseCode,className,session,section);
+                        Result result = new Result(ID,Name,courseCode,className,session,section);
                         result.setLocationRelativeTo(null);
                         result.setVisible(true);
                     } catch (ClassNotFoundException ex) {
@@ -318,7 +321,7 @@ public class Result extends JFrame{
             public void mouseClicked(MouseEvent e) {
                 setVisible(false);
                 
-                ClassElement ce = new ClassElement("Teacher",courseCode,className,session,section);
+                ClassElement ce = new ClassElement("Teacher",ID,Name,courseCode,className,session,section);
                 ce.setLocationRelativeTo(null);
                 ce.setVisible(true);
             }
