@@ -100,6 +100,7 @@ public class Attendance extends JFrame{
         }
         
         stmt.close();
+        rs.close();
         
  
         

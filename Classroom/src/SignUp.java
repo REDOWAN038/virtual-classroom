@@ -328,8 +328,8 @@ public class SignUp extends javax.swing.JFrame {
         // TODO add your handling code here:
         fName = fieldFName.getText();
         lName = fieldLName.getText();
-        password = fieldPassword.getText();
-        confirmPassword = fieldCPassword.getText();
+        password = Hash.getHash(fieldPassword.getText());
+        confirmPassword = Hash.getHash(fieldCPassword.getText());
         email = fieldEmail.getText();
         phone = fieldPhone.getText();
 

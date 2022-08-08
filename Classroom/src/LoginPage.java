@@ -154,7 +154,7 @@ public class LoginPage extends javax.swing.JFrame {
                     stmt = conn.createStatement();
                     rs = stmt.executeQuery("SELECT * FROM "+choice);
                     int userID = Integer.parseInt(fieldID.getText());
-                    String userPassword = fieldPassword.getText();
+                    String userPassword = Hash.getHash(fieldPassword.getText());
                     
                     while(rs.next()){
                         int dataBaseID = rs.getInt("ID");
