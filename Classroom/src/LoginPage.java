@@ -75,7 +75,7 @@ public class LoginPage extends javax.swing.JFrame {
         getContentPane().add(fieldPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 230, 170, -1));
 
         comboBox.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        comboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Teacher", "Student" }));
+        comboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Teacher", "Student" }));
         comboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxActionPerformed(evt);
@@ -246,7 +246,10 @@ public class LoginPage extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new LoginPage().setVisible(true);
+                    LoginPage lp = new LoginPage();
+                    lp.setLocationRelativeTo(null);
+                    lp.setVisible(true);
+                    //new LoginPage().setVisible(true);
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(LoginPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
