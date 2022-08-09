@@ -60,7 +60,7 @@ public class ShowMaterial extends javax.swing.JFrame {
         Vector<Vector<String> > data = new Vector<>();
         Vector<String> coloumn = new Vector<>();
         
-        coloumn.add("SI");
+        //coloumn.add("SI");
         coloumn.add("ID");
         coloumn.add("Name");
         coloumn.add("Link");

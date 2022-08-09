@@ -51,12 +51,12 @@ public class ClassElement extends javax.swing.JFrame {
         btnChat = new com.k33ptoo.components.KButton();
         btnWhiteboard = new com.k33ptoo.components.KButton();
         btnBack = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         lblImage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(100, 200));
-        setPreferredSize(new java.awt.Dimension(800, 500));
+        setPreferredSize(new java.awt.Dimension(950, 600));
         getContentPane().setLayout(null);
 
         lblInfo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -64,7 +64,7 @@ public class ClassElement extends javax.swing.JFrame {
         lblInfo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblInfo.setText("CSE 233(OOP),2019-20,both");
         getContentPane().add(lblInfo);
-        lblInfo.setBounds(260, 30, 323, 22);
+        lblInfo.setBounds(380, 80, 323, 22);
 
         btnStream.setText("STREAM");
         btnStream.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -80,7 +80,7 @@ public class ClassElement extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnStream);
-        btnStream.setBounds(38, 119, 185, 118);
+        btnStream.setBounds(120, 170, 185, 118);
 
         btnAttendance.setText("ATTENDENCE");
         btnAttendance.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -95,7 +95,7 @@ public class ClassElement extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnAttendance);
-        btnAttendance.setBounds(308, 119, 185, 118);
+        btnAttendance.setBounds(410, 170, 185, 118);
 
         btnResult.setText("RESULT");
         btnResult.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -110,7 +110,7 @@ public class ClassElement extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnResult);
-        btnResult.setBounds(572, 119, 185, 118);
+        btnResult.setBounds(680, 170, 185, 118);
 
         btnChat.setText("CHAT");
         btnChat.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -125,7 +125,7 @@ public class ClassElement extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnChat);
-        btnChat.setBounds(38, 297, 185, 118);
+        btnChat.setBounds(120, 370, 185, 118);
 
         btnWhiteboard.setText("WhiteBoard");
         btnWhiteboard.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -141,7 +141,7 @@ public class ClassElement extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnWhiteboard);
-        btnWhiteboard.setBounds(308, 297, 185, 118);
+        btnWhiteboard.setBounds(420, 370, 185, 118);
 
         btnBack.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnBack.setText("Back");
@@ -152,16 +152,16 @@ public class ClassElement extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnBack);
-        btnBack.setBounds(40, 30, 72, 23);
+        btnBack.setBounds(150, 80, 72, 23);
 
-        jPanel1.setLayout(null);
+        jPanel2.setLayout(null);
 
         lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/greenboard.png"))); // NOI18N
-        jPanel1.add(lblImage);
-        lblImage.setBounds(0, 0, 800, 500);
+        jPanel2.add(lblImage);
+        lblImage.setBounds(0, 0, 950, 600);
 
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 810, 500);
+        getContentPane().add(jPanel2);
+        jPanel2.setBounds(0, 0, 950, 600);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -255,6 +255,7 @@ public class ClassElement extends javax.swing.JFrame {
     private void btnBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseClicked
         // TODO add your handling code here:
         
+        setVisible(false);
         if(type.equals("Student")){
             try {
                 Student st = new Student(ID,Name);
@@ -287,6 +288,12 @@ public class ClassElement extends javax.swing.JFrame {
         
         if(type.equals("Teacher")){
             TeacherStream ts = new TeacherStream(type,ID,Name,classCode,className,session,section);
+            ts.setLocationRelativeTo(null);
+            ts.setVisible(true);
+        }
+        
+        else{
+            StudentStream ts = new StudentStream(type,ID,Name,classCode,className,session,section);
             ts.setLocationRelativeTo(null);
             ts.setVisible(true);
         }
@@ -342,7 +349,7 @@ public class ClassElement extends javax.swing.JFrame {
     private com.k33ptoo.components.KButton btnStream;
     private com.k33ptoo.components.KButton btnWhiteboard;
     private javax.swing.JLayeredPane jLayeredPane1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblImage;
     private javax.swing.JLabel lblInfo;
     // End of variables declaration//GEN-END:variables

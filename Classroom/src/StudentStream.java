@@ -25,14 +25,12 @@ import javax.swing.JTextField;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author User
  */
-public class TeacherStream extends javax.swing.JFrame implements ActionListener {
+public class StudentStream extends javax.swing.JFrame implements ActionListener {
 
     int listsize = 0;
     String st[] = new String[100];
@@ -40,9 +38,9 @@ public class TeacherStream extends javax.swing.JFrame implements ActionListener 
     JButton[] but = new JButton[100];
 
     /**
-     * Creates new form TeacherStream
+     * Creates new form frame1
      */
-    public TeacherStream(String type,int ID,String Name,String classCode,String className,String session, String section) {
+    public StudentStream(String type,int ID,String Name,String classCode,String className,String session, String section) {
         this.type = type;
         this.ID = ID;
         this.Name = Name;
@@ -63,7 +61,7 @@ public class TeacherStream extends javax.swing.JFrame implements ActionListener 
     public void addthis() {
         try {
             //insertdata c1 = new insertdata();
-            
+
             String tableName = classCode + "_stream";
             String s1 = "select * from " + tableName;
             stmt = conn.createStatement();
@@ -79,8 +77,8 @@ public class TeacherStream extends javax.swing.JFrame implements ActionListener 
 //                            JOptionPane.showMessageDialog(null, st[listsize]);
                 listsize++;
             }
-        } catch (SQLException e) {
-            Logger.getLogger(TeacherStream.class.getName()).log(Level.SEVERE, null, e);
+        } catch (HeadlessException | SQLException e) {
+            e.printStackTrace();
         }
 
         JPanel panel = createPanel();
@@ -123,13 +121,14 @@ public class TeacherStream extends javax.swing.JFrame implements ActionListener 
                 repaint();
                 revalidate();
                 doit(i);
+                showPanel();
             }
         }
     }
 
     public void doit(int x) {
 
-        String post = "", author = "", duetime = "", link = "", title = "",points="",time="";
+        String post = "", author = "", duetime = "", link = "", title = "", points = "", time = "";
         int cat = 0;
 
         try {
@@ -153,25 +152,64 @@ public class TeacherStream extends javax.swing.JFrame implements ActionListener 
                 points = rs.getString("points");
                 cat = rs.getInt("catagory");
             }
-           
+             //System.out.println(cat);
             if(cat==2)
                 curTitle = title;
             else
                 curTitle = "null";
 
-        } catch (SQLException ev) {
-            Logger.getLogger(TeacherStream.class.getName()).log(Level.SEVERE, null, ev);
+        } catch (HeadlessException | SQLException ev) {
+            ev.printStackTrace();
         }
 
         postarea.setText(post);
-        duedatelabel.setText("Due : "+duetime);
+        duedatelabel.setText("Due : " + duetime);
         authorlabel.setText(author);
-        if(title.matches("")) titlelabel.setText("no title");
+//        if(title.matches("")) titlelabel.setText("no title");
         titlelabel.setText(title);
         Datelabel.setText(time);
         linklabel.setText(link);
-        showpoint.setText("Points: "+points);
+        showpoint.setText("Points: " + points);
         postarea.setEditable(false);
+    }
+    
+    void showPanel(){
+        String tableName = classCode + "_" + curTitle;
+        boolean found = false;
+        String link = "submit assignment link";
+        
+        try {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM "+tableName);
+            
+            while(rs.next()){
+                int id = rs.getInt("ID");
+                
+                if(id==ID){
+                    found = true;
+                    link = rs.getString("Link");
+                    break;
+                }
+            }
+            
+            rs.close();
+            stmt.close();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentStream.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if(found){
+            jLabel14.setText("Turned In");
+            jButton2.setText("Unsubmit");
+            jTextField5.setText(link);
+        }
+        
+        else{
+            jLabel14.setText("Due");
+            jButton2.setText("Submit");
+            jTextField5.setText("submit assignment link");
+        }
     }
 
     /**
@@ -204,8 +242,6 @@ public class TeacherStream extends javax.swing.JFrame implements ActionListener 
         mainpostarea = new javax.swing.JTextArea();
         postPanel = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        addmaterialPanel = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
         secondPanel = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -228,11 +264,14 @@ public class TeacherStream extends javax.swing.JFrame implements ActionListener 
         thirdPanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
+        jTextField5 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
+        jLabel14 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         titlelabel = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         authorlabel = new javax.swing.JLabel();
+        duelabel = new javax.swing.JLabel();
         duedatelabel = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -453,7 +492,7 @@ public class TeacherStream extends javax.swing.JFrame implements ActionListener 
         jScrollPane1.setViewportView(mainpostarea);
 
         firstPanel.add(jScrollPane1);
-        jScrollPane1.setBounds(250, 10, 540, 40);
+        jScrollPane1.setBounds(260, 10, 580, 40);
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -474,10 +513,10 @@ public class TeacherStream extends javax.swing.JFrame implements ActionListener 
         postPanel.setLayout(postPanelLayout);
         postPanelLayout.setHorizontalGroup(
             postPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(postPanelLayout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, postPanelLayout.createSequentialGroup()
+                .addContainerGap(9, Short.MAX_VALUE)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap())
         );
         postPanelLayout.setVerticalGroup(
             postPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -485,45 +524,7 @@ public class TeacherStream extends javax.swing.JFrame implements ActionListener 
         );
 
         firstPanel.add(postPanel);
-        postPanel.setBounds(810, 10, 120, 40);
-
-        addmaterialPanel.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/plus.png"))); // NOI18N
-        jLabel3.setText("Assignment");
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel3MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel3MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel3MouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout addmaterialPanelLayout = new javax.swing.GroupLayout(addmaterialPanel);
-        addmaterialPanel.setLayout(addmaterialPanelLayout);
-        addmaterialPanelLayout.setHorizontalGroup(
-            addmaterialPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addmaterialPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        addmaterialPanelLayout.setVerticalGroup(
-            addmaterialPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addmaterialPanelLayout.createSequentialGroup()
-                .addContainerGap(7, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        firstPanel.add(addmaterialPanel);
-        addmaterialPanel.setBounds(940, 10, 190, 40);
+        postPanel.setBounds(890, 10, 120, 40);
 
         switcher.add(firstPanel, "card2");
 
@@ -714,36 +715,56 @@ public class TeacherStream extends javax.swing.JFrame implements ActionListener 
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel13.setText("All Submitted Works");
+        jLabel13.setText("Your Work");
 
-        jButton2.setText("View Submissions");
+        jTextField5.setText("submit assignment link");
+        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField5ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Submit");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
 
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jLabel14.setText("Due");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(82, 82, 82)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(53, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14))
+                .addGap(29, 29, 29)
+                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         titlelabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -769,6 +790,9 @@ public class TeacherStream extends javax.swing.JFrame implements ActionListener 
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/list.png"))); // NOI18N
 
         authorlabel.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+
+        duelabel.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        duelabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         duedatelabel.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         duedatelabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -834,16 +858,15 @@ public class TeacherStream extends javax.swing.JFrame implements ActionListener 
         thirdPanelLayout.setHorizontalGroup(
             thirdPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, thirdPanelLayout.createSequentialGroup()
-                .addGroup(thirdPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(thirdPanelLayout.createSequentialGroup()
-                        .addGap(66, 66, 66)
-                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(thirdPanelLayout.createSequentialGroup()
-                        .addGap(81, 81, 81)
-                        .addGroup(thirdPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Datelabel, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(thirdPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(thirdPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(thirdPanelLayout.createSequentialGroup()
+                            .addGap(66, 66, 66)
+                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(thirdPanelLayout.createSequentialGroup()
+                            .addGap(81, 81, 81)
                             .addGroup(thirdPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(thirdPanelLayout.createSequentialGroup()
@@ -856,8 +879,13 @@ public class TeacherStream extends javax.swing.JFrame implements ActionListener 
                                 .addGroup(thirdPanelLayout.createSequentialGroup()
                                     .addComponent(showpoint, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(duelabel, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(duedatelabel, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(13, 13, 13))))))
+                                    .addGap(13, 13, 13)))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, thirdPanelLayout.createSequentialGroup()
+                        .addGap(95, 95, 95)
+                        .addComponent(Datelabel, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36))
@@ -882,7 +910,8 @@ public class TeacherStream extends javax.swing.JFrame implements ActionListener 
                         .addGap(18, 18, 18)
                         .addGroup(thirdPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(showpoint, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(duedatelabel, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE))
+                            .addComponent(duelabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(duedatelabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -958,10 +987,9 @@ public class TeacherStream extends javax.swing.JFrame implements ActionListener 
         setVisible(false);
         
         
-        TeacherStream ts = new TeacherStream(type,ID,Name,classCode,className,session,section);
+        StudentStream ts = new StudentStream(type,ID,Name,classCode,className,session,section);
         ts.setLocationRelativeTo(null);
         ts.setVisible(true);
-        
     }//GEN-LAST:event_firtPanelButtonMouseClicked
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
@@ -987,13 +1015,10 @@ public class TeacherStream extends javax.swing.JFrame implements ActionListener 
         String author = Name;
 
         try {
-            //insertdata c1 = new insertdata();
-
+//            insertdata c1 = new insertdata();
+//
 //            String s1 = "insert into matarial_list(catagory,author,time,post) values(" + 1 + ",'" + author + "','" + dt + "','" + post + "')";
-//            
-//            stmt = conn.createStatement();
-//            stmt.executeUpdate(s1);
-//            //c1.s.executeUpdate(s1);
+//            c1.s.executeUpdate(s1);
 
             int count = 0;
 
@@ -1025,19 +1050,15 @@ public class TeacherStream extends javax.swing.JFrame implements ActionListener 
             
             pStmt.execute();
             pStmt.close();
-            
-            
-            
-            
 
-        } catch (SQLException e) {
-            Logger.getLogger(TeacherStream.class.getName()).log(Level.SEVERE, null, e);
+        } catch (HeadlessException | SQLException e) {
+            e.printStackTrace();
         }
         
         setVisible(false);
         
         
-        TeacherStream ts = new TeacherStream(type,ID,Name,classCode,className,session,section);
+        StudentStream ts = new StudentStream(type,ID,Name,classCode,className,session,section);
         ts.setLocationRelativeTo(null);
         ts.setVisible(true);
     }//GEN-LAST:event_jLabel6MouseClicked
@@ -1087,22 +1108,11 @@ public class TeacherStream extends javax.swing.JFrame implements ActionListener 
     }//GEN-LAST:event_browserMouseClicked
 
     private void homePanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homePanelMouseClicked
-       setVisible(false);
+        setVisible(false);
         ClassElement ce = new ClassElement(type,ID,Name,classCode,className,session,section);
         ce.setLocationRelativeTo(null);
         ce.setVisible(true);
     }//GEN-LAST:event_homePanelMouseClicked
-
-    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-        switcher.removeAll();
-        switcher.add(secondPanel);
-        repaint();
-        revalidate();
-    }//GEN-LAST:event_jLabel3MouseClicked
-
-    private void jLabel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseEntered
-        addmaterialPanel.setBackground(new java.awt.Color(255, 255, 255));
-    }//GEN-LAST:event_jLabel3MouseEntered
 
     private void pointfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pointfieldActionPerformed
         // TODO add your handling code here:
@@ -1116,15 +1126,76 @@ public class TeacherStream extends javax.swing.JFrame implements ActionListener 
         // TODO add your handling code here:
     }//GEN-LAST:event_duedateActionPerformed
 
-    private void jLabel3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseExited
-        addmaterialPanel.setBackground(new java.awt.Color(242, 242, 242));
-    }//GEN-LAST:event_jLabel3MouseExited
+    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField5ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if(!curTitle.equals("null")){
-            ShowMaterial sm = new ShowMaterial(classCode,curTitle);
-            sm.setLocationRelativeTo(null);
-            sm.setVisible(true);
+           
+        if (!curTitle.equals("null")) {
+            
+            String link = jTextField5.getText();
+            String tableName = classCode + "_" + curTitle;
+            int id;
+            boolean found = false;
+            
+            try {
+                stmt = conn.createStatement();
+                rs = stmt.executeQuery("SELECT * FROM "+tableName);
+                
+                while(rs.next()){
+                    id = rs.getInt("ID");
+                    link = rs.getString("Link");
+                    
+                    if(id==ID){
+                        found = true;
+                        break;
+                    }
+                }
+                
+                stmt.close();
+                rs.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(StudentStream.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            
+            if (!found) {
+                try {
+//                    jTextField5.setText(link);
+//                    jButton2.setText("Submitted");
+                    pStmt = conn.prepareStatement("INSERT INTO "+ tableName +" VALUES(?,?,?)");
+                    pStmt.setInt(1,ID);
+                    pStmt.setString(2,Name);
+                    pStmt.setString(3,link );
+                    
+                    pStmt.execute();
+                    pStmt.close();
+                    
+                    JOptionPane.showMessageDialog(null, "submitted");
+                    jLabel14.setText("Turned in");
+                    jButton2.setText("Unsubmit");
+                    jTextField5.setText(link);
+                } catch (SQLException ex) {
+                    Logger.getLogger(StudentStream.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                try {
+                    pStmt = conn.prepareStatement("DELETE FROM " + tableName + " WHERE ID = (?)");
+                    pStmt.setInt(1, ID);
+                    pStmt.execute();
+                    pStmt.close();
+                    
+                    JOptionPane.showMessageDialog(null, "unsubmitted");
+                    jLabel14.setText("Due");
+                    jButton2.setText("Submit");
+                    jTextField5.setText("submit assignment link");
+                } catch (SQLException ex) {
+                    Logger.getLogger(StudentStream.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+            }
+
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -1136,96 +1207,30 @@ public class TeacherStream extends javax.swing.JFrame implements ActionListener 
             d.browse(new URI(str));
         } catch (IOException | URISyntaxException e1) {
             // TODO Auto-generated catch block
-            Logger.getLogger(TeacherStream.class.getName()).log(Level.SEVERE, null, e1);
+            e1.printStackTrace();
         }
     }//GEN-LAST:event_linklabelMouseClicked
 
     private void assignlabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_assignlabelMouseClicked
 
-        String title = titletextarea.getText();
-        String post = optionalarea.getText();
-        String link = addlinkfield.getText();
-        String topicnam = topicname.getText();
-        String duedat = duedate.getText();
-        String point = pointfield.getText();
-        String dt = new java.util.Date().toString();
-        String author = Name;
-        int count = 0;
-
-        try {
-            //insertdata c1 = new insertdata();
-
-//            //String s1 = "insert into matarial_list(catagory,author,time,post,title,link,points,due,topic_name) values(" + 2 + ",'" + author + "','"
-//                    + dt + "','" + post + "','" + title + "','" + link + "','" + point + "','" + duedat + "','" + topicnam + "')";
-//           // c1.s.executeUpdate(s1);
-
-            stmt = conn.createStatement();
-            String tableName = classCode + "_stream";
-            String op = "SELECT * FROM " + tableName;
-            rs = stmt.executeQuery(op);
-            
-            while(rs.next()){
-                count++;
-            }
-            
-            tableName = classCode + "_stream";
-            op = "INSERT INTO " + tableName + " VALUES(?,?,?,?,?,?,?,?,?,?)";
-            pStmt = conn.prepareStatement(op);
-            pStmt.setInt(1,count+1);
-            pStmt.setInt(2, 2);
-            pStmt.setString(3, author);
-            pStmt.setString(4, dt);
-            pStmt.setString(5, post);
-            pStmt.setString(6, title);
-            pStmt.setString(7, link);
-            pStmt.setString(8, point);
-            pStmt.setString(9, duedat);
-            pStmt.setString(10, topicnam);
-            
-            pStmt.execute();
-            pStmt.close();
-            
-            tableName = classCode + "_" + title;
-            op = "CREATE TABLE " + tableName + " ("
-                    + " ID INTEGER NOT NULL, "
-                    + " Name VARCHAR(100) NOT NULL, "
-                    + " Link VARCHAR(1000) NOT NULL, "
-                    + " PRIMARY KEY (`ID`))";
-            
-            pStmt = conn.prepareStatement(op);
-            pStmt.execute();
-            pStmt.close();
-
-        } catch (SQLException e) {
-            Logger.getLogger(TeacherStream.class.getName()).log(Level.SEVERE, null, e);
-        }
-        
-        JOptionPane.showMessageDialog(null, "Assigned Successfully");
-        
-        setVisible(false);
-        
-        
-        TeacherStream ts = new TeacherStream(type,ID,Name,classCode,className,session,section);
-        ts.setLocationRelativeTo(null);
-        ts.setVisible(true);
 
 
     }//GEN-LAST:event_assignlabelMouseClicked
 
     private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked
-        
+
         //show chat box
-        
+
     }//GEN-LAST:event_jLabel16MouseClicked
 
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
-        
+
         //take input from the left and add to chat box
         setVisible(false);
         ClassElement ce = new ClassElement(type,ID,Name,classCode,className,session,section);
         ce.setLocationRelativeTo(null);
         ce.setVisible(true);
-        
+
     }//GEN-LAST:event_jLabel11MouseClicked
 
     /**
@@ -1244,22 +1249,24 @@ public class TeacherStream extends javax.swing.JFrame implements ActionListener 
                     break;
                 }
             }
-        } catch (ClassNotFoundException e) {
-            Logger.getLogger(TeacherStream.class.getName()).log(Level.SEVERE, null, e);
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(StudentStream.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            Logger.getLogger(TeacherStream.class.getName()).log(Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StudentStream.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            Logger.getLogger(TeacherStream.class.getName()).log(Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StudentStream.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(TeacherStream.class.getName()).log(Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StudentStream.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
             public void run() {
-                new TeacherStream("a",0,"a","a","a","a","a").setVisible(true);
+                new StudentStream("a",0,"a","a","a","a","a").setVisible(true);
             }
         });
     }
@@ -1268,7 +1275,6 @@ public class TeacherStream extends javax.swing.JFrame implements ActionListener 
     private javax.swing.JPanel BG;
     private javax.swing.JLabel Datelabel;
     private javax.swing.JTextField addlinkfield;
-    private javax.swing.JPanel addmaterialPanel;
     private javax.swing.JLabel assignlabel;
     private javax.swing.JLabel authorlabel;
     private javax.swing.JLabel browser;
@@ -1277,6 +1283,7 @@ public class TeacherStream extends javax.swing.JFrame implements ActionListener 
     private javax.swing.JTextArea commentarea;
     private javax.swing.JTextField duedate;
     private javax.swing.JLabel duedatelabel;
+    private javax.swing.JLabel duelabel;
     private javax.swing.JPanel firstPanel;
     private javax.swing.JPanel firstPanelBG;
     private javax.swing.JLabel firtPanelButton;
@@ -1287,10 +1294,10 @@ public class TeacherStream extends javax.swing.JFrame implements ActionListener 
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1309,6 +1316,7 @@ public class TeacherStream extends javax.swing.JFrame implements ActionListener 
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JTextField jTextField5;
     private javax.swing.JLabel linklabel;
     private javax.swing.JTextArea mainpostarea;
     private javax.swing.JLabel notepad;
