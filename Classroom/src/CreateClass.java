@@ -217,6 +217,8 @@ public class CreateClass extends javax.swing.JFrame {
             pStmt.execute();
             pStmt.close();
             
+            
+            
             pStmt = conn.prepareStatement("INSERT INTO " + tableName + " VALUES(?,?)");
             pStmt.setInt(1, 1);
             pStmt.setString(2, "ID");
@@ -226,6 +228,25 @@ public class CreateClass extends javax.swing.JFrame {
             pStmt = conn.prepareStatement("INSERT INTO " + tableName + " VALUES(?,?)");
             pStmt.setInt(1, 2);
             pStmt.setString(2, "Name");
+            pStmt.execute();
+            pStmt.close();
+            
+            tableName = fieldCode.getText() + "_stream";
+            
+            op = "CREATE TABLE " + tableName + " ("
+                    + " sl_no INTEGER NOT NULL, "
+                    + " catagory INTEGER NOT NULL, "
+                    + " author VARCHAR(30) NOT NULL, "
+                    + " time VARCHAR(100) NOT NULL, "
+                    + " post VARCHAR(1000) NOT NULL, "
+                    + " title VARCHAR(100) NOT NULL, "
+                    + " link VARCHAR(1000) NOT NULL, "
+                    + " points INTEGER NOT NULL, "
+                    + " due VARCHAR(100) NOT NULL, "
+                    + " topic_name VARCHAR(100) NOT NULL, "
+                    + " PRIMARY KEY (`sl_no`))";
+            
+            pStmt = conn.prepareStatement(op);
             pStmt.execute();
             pStmt.close();
             

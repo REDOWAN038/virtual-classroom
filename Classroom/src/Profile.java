@@ -260,8 +260,8 @@ public class Profile extends javax.swing.JFrame {
 
     private void btnSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaveMouseClicked
         // TODO add your handling code here:
-                String newPass = fieldNewPassword.getText();
-                String confirmPass = fieldCPassword.getText();
+                String newPass = Hash.getHash(fieldNewPassword.getText());
+                String confirmPass = Hash.getHash(fieldCPassword.getText());
                 
                 
                 if(newPass.length()>0 && newPass.equals(confirmPass)){
@@ -270,7 +270,7 @@ public class Profile extends javax.swing.JFrame {
                         pStmt = conn.prepareStatement(op);
                         pStmt.setString(1, fieldEmail.getText());
                         pStmt.setString(2, fieldPhone.getText());
-                        pStmt.setString(3, fieldNewPassword.getText());
+                        pStmt.setString(3, Hash.getHash(fieldNewPassword.getText()));
                         pStmt.setInt(4, ID);
                         pStmt.executeUpdate();
                         pStmt.close();

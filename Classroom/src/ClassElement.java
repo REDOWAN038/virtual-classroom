@@ -74,6 +74,11 @@ public class ClassElement extends javax.swing.JFrame {
         btnStream.setkHoverForeGround(new java.awt.Color(0, 0, 0));
         btnStream.setkHoverStartColor(new java.awt.Color(255, 255, 255));
         btnStream.setkStartColor(new java.awt.Color(255, 51, 204));
+        btnStream.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnStreamMouseClicked(evt);
+            }
+        });
         getContentPane().add(btnStream);
         btnStream.setBounds(38, 119, 185, 118);
 
@@ -274,6 +279,18 @@ public class ClassElement extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnBackMouseClicked
+
+    private void btnStreamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStreamMouseClicked
+        // TODO add your handling code here:
+        
+        setVisible(false);
+        
+        if(type.equals("Teacher")){
+            TeacherStream ts = new TeacherStream(type,ID,Name,classCode,className,session,section);
+            ts.setLocationRelativeTo(null);
+            ts.setVisible(true);
+        }
+    }//GEN-LAST:event_btnStreamMouseClicked
     
     void setLabel(){
         String lbl = className + "," + session + "," + section;
