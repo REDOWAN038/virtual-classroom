@@ -30,6 +30,8 @@ import javax.swing.JTextField;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -53,6 +55,16 @@ public class StudentStream extends javax.swing.JFrame implements ActionListener 
         this.className = className;
         this.session = session;
         this.section = section;
+        
+        try {
+            UIManager.setLookAndFeel(new FlatSolarizedLightIJTheme());
+            UIManager.put("Button.arc", 999);
+            UIManager.put("Component.arc", 999);
+            UIManager.put("ProgressBar.arc", 999);
+            UIManager.put("TextComponent.arc", 999);
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(StudentStream.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         init();
         //initComponents();
@@ -909,12 +921,12 @@ public class StudentStream extends javax.swing.JFrame implements ActionListener 
 
             String newP = "";
             
-            for(int j=0;j<7 && j<st[i].length();j++){
+            for(int j=0;j<15 && j<st[i].length();j++){
                 newP = newP + st[i].charAt(j);
             }
             
             newP = newP + "...";
-            int cnt = 10-newP.length();
+            int cnt = 18-newP.length();
             
             //int cnt = (17-newP.length()+1) + 97;
             for (int jj = 0; jj < 100+cnt; jj++) {
@@ -1026,13 +1038,13 @@ public class StudentStream extends javax.swing.JFrame implements ActionListener 
         }
         
         if(found){
-            jLabel14.setText("Turned In");
+            jLabel18.setText("Turned In");
             jButton2.setText("Unsubmit");
             jTextField5.setText(link);
         }
         
         else{
-            jLabel14.setText("Due");
+            jLabel18.setText("Due");
             jButton2.setText("Submit");
             jTextField5.setText("submit assignment link");
         }
@@ -1693,26 +1705,25 @@ public class StudentStream extends javax.swing.JFrame implements ActionListener 
                             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(thirdPanelLayout.createSequentialGroup()
                             .addGap(81, 81, 81)
-                            .addGroup(thirdPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(thirdPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(authorlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(thirdPanelLayout.createSequentialGroup()
+                                    .addComponent(showpoint, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(291, 291, 291)
+                                    .addComponent(duelabel, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(duedatelabel, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(thirdPanelLayout.createSequentialGroup()
                                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(26, 26, 26)
                                     .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(32, 32, 32)
-                                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(authorlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(thirdPanelLayout.createSequentialGroup()
-                                    .addComponent(showpoint, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(duelabel, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(duedatelabel, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(13, 13, 13)))))
+                                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, thirdPanelLayout.createSequentialGroup()
                         .addGap(95, 95, 95)
                         .addComponent(Datelabel, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36))
         );
@@ -1890,16 +1901,17 @@ public class StudentStream extends javax.swing.JFrame implements ActionListener 
     }//GEN-LAST:event_jLabel6MouseClicked
 
     private void jLabel6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseEntered
-        postPanel.setBackground(new java.awt.Color(242, 242, 242));
+        postPanel.setBackground(new java.awt.Color(218, 142, 57));
     }//GEN-LAST:event_jLabel6MouseEntered
 
     private void jLabel6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseExited
-        postPanel.setBackground(new java.awt.Color(255, 255, 255));
+        postPanel.setBackground(new java.awt.Color(175, 141, 80));
     }//GEN-LAST:event_jLabel6MouseExited
 
     private void zoomLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_zoomLabelMouseClicked
+        String filePath = "/Applications/zoom.us.app";
         try {
-            Runtime.getRuntime().exec("Zoom.exe");
+            Runtime.getRuntime().exec("open " + filePath);
         } catch (Exception e) {
         }
     }//GEN-LAST:event_zoomLabelMouseClicked
@@ -1913,22 +1925,25 @@ public class StudentStream extends javax.swing.JFrame implements ActionListener 
     }//GEN-LAST:event_zoomLabelMouseExited
 
     private void calculatorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_calculatorMouseClicked
+        String filePath = "/System/Applications/Calculator.app";
         try {
-            Runtime.getRuntime().exec("calc.exe");
+            Runtime.getRuntime().exec("open " + filePath);
         } catch (Exception e) {
         }
     }//GEN-LAST:event_calculatorMouseClicked
 
     private void notepadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_notepadMouseClicked
+        String filePath = "/Applications/CotEditor.app";
         try {
-            Runtime.getRuntime().exec("notepad.exe");
+            Runtime.getRuntime().exec("open " + filePath);
         } catch (Exception e) {
         }
     }//GEN-LAST:event_notepadMouseClicked
 
     private void browserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_browserMouseClicked
+        String filePath = "/Applications/Brave Browser.app";
         try {
-            Runtime.getRuntime().exec("C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe");
+            Runtime.getRuntime().exec("open " + filePath);
         } catch (Exception e) {
         }
     }//GEN-LAST:event_browserMouseClicked

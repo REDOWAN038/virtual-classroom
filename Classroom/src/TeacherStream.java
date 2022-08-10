@@ -32,6 +32,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -55,6 +57,16 @@ public class TeacherStream extends javax.swing.JFrame implements ActionListener 
         this.className = className;
         this.session = session;
         this.section = section;
+        
+        try {
+            UIManager.setLookAndFeel(new FlatSolarizedLightIJTheme());
+            UIManager.put("Button.arc", 999);
+            UIManager.put("Component.arc", 999);
+            UIManager.put("ProgressBar.arc", 999);
+            UIManager.put("TextComponent.arc", 999);
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(TeacherStream.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         init();
         //initComponents();
@@ -928,12 +940,12 @@ public class TeacherStream extends javax.swing.JFrame implements ActionListener 
             ss += "l";
             String newP = "";
             
-            for(int j=0;j<7 && j<st[i].length();j++){
+            for(int j=0;j<15 && j<st[i].length();j++){
                 newP = newP + st[i].charAt(j);
             }
             
             newP = newP + "...";
-            int cnt = 10-newP.length();
+            int cnt = 18-newP.length();
             
             //int cnt = (17-newP.length()+1) + 97;
             for (int jj = 0; jj < 100+cnt; jj++) {
@@ -1027,6 +1039,7 @@ public class TeacherStream extends javax.swing.JFrame implements ActionListener 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        flatSolarizedLightIJTheme1 = new com.formdev.flatlaf.intellijthemes.FlatSolarizedLightIJTheme();
         BG = new javax.swing.JPanel();
         toppanel = new javax.swing.JPanel();
         firstPanelBG = new javax.swing.JPanel();
@@ -1291,7 +1304,9 @@ public class TeacherStream extends javax.swing.JFrame implements ActionListener 
         jScrollPane1.setFocusable(false);
 
         mainpostarea.setColumns(20);
+        mainpostarea.setLineWrap(true);
         mainpostarea.setRows(5);
+        mainpostarea.setWrapStyleWord(true);
         mainpostarea.setBorder(null);
         mainpostarea.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane1.setViewportView(mainpostarea);
@@ -1887,16 +1902,17 @@ public class TeacherStream extends javax.swing.JFrame implements ActionListener 
     }//GEN-LAST:event_jLabel6MouseClicked
 
     private void jLabel6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseEntered
-        postPanel.setBackground(new java.awt.Color(242, 242, 242));
+        postPanel.setBackground(new java.awt.Color(218, 142, 57));
     }//GEN-LAST:event_jLabel6MouseEntered
 
     private void jLabel6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseExited
-        postPanel.setBackground(new java.awt.Color(255, 255, 255));
+        postPanel.setBackground(new java.awt.Color(175, 141, 80));
     }//GEN-LAST:event_jLabel6MouseExited
 
     private void zoomLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_zoomLabelMouseClicked
+        String filePath = "/Applications/zoom.us.app";
         try {
-            Runtime.getRuntime().exec("Zoom.exe");
+            Runtime.getRuntime().exec("open " + filePath);
         } catch (Exception e) {
         }
     }//GEN-LAST:event_zoomLabelMouseClicked
@@ -1910,22 +1926,25 @@ public class TeacherStream extends javax.swing.JFrame implements ActionListener 
     }//GEN-LAST:event_zoomLabelMouseExited
 
     private void calculatorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_calculatorMouseClicked
+        String filePath = "/System/Applications/Calculator.app";
         try {
-            Runtime.getRuntime().exec("calc.exe");
+            Runtime.getRuntime().exec("open " + filePath);
         } catch (Exception e) {
         }
     }//GEN-LAST:event_calculatorMouseClicked
 
     private void notepadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_notepadMouseClicked
+        String filePath = "/Applications/CotEditor.app";
         try {
-            Runtime.getRuntime().exec("notepad.exe");
+            Runtime.getRuntime().exec("open " + filePath);
         } catch (Exception e) {
         }
     }//GEN-LAST:event_notepadMouseClicked
 
     private void browserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_browserMouseClicked
+        String filePath = "/Applications/Brave Browser.app";
         try {
-            Runtime.getRuntime().exec("C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe");
+            Runtime.getRuntime().exec("open " + filePath);
         } catch (Exception e) {
         }
     }//GEN-LAST:event_browserMouseClicked
@@ -1945,7 +1964,7 @@ public class TeacherStream extends javax.swing.JFrame implements ActionListener 
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jLabel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseEntered
-        addmaterialPanel.setBackground(new java.awt.Color(255, 255, 255));
+        addmaterialPanel.setBackground(new java.awt.Color(218, 142, 57));
     }//GEN-LAST:event_jLabel3MouseEntered
 
     private void pointfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pointfieldActionPerformed
@@ -1961,7 +1980,7 @@ public class TeacherStream extends javax.swing.JFrame implements ActionListener 
     }//GEN-LAST:event_duedateActionPerformed
 
     private void jLabel3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseExited
-        addmaterialPanel.setBackground(new java.awt.Color(242, 242, 242));
+        addmaterialPanel.setBackground(new java.awt.Color(176, 141, 81));
     }//GEN-LAST:event_jLabel3MouseExited
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -1973,15 +1992,23 @@ public class TeacherStream extends javax.swing.JFrame implements ActionListener 
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void linklabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_linklabelMouseClicked
-        String str = linklabel.getText();
-//        JOptionPane.showMessageDialog(null, str);
-        Desktop d = Desktop.getDesktop();
+       URI uri = null;
+       String link = linklabel.getText();
+        
         try {
-            d.browse(new URI(str));
-        } catch (IOException | URISyntaxException e1) {
-            // TODO Auto-generated catch block
-            Logger.getLogger(TeacherStream.class.getName()).log(Level.SEVERE, null, e1);
+            uri = new URI(link);
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(TeacherStream.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        if(Desktop.isDesktopSupported()){
+           try {
+               Desktop.getDesktop().browse(uri);
+           } catch (IOException ex) {
+               Logger.getLogger(TeacherStream.class.getName()).log(Level.SEVERE, null, ex);
+           }
+        }
+        
     }//GEN-LAST:event_linklabelMouseClicked
 
     private void assignlabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_assignlabelMouseClicked
@@ -2081,24 +2108,33 @@ public class TeacherStream extends javax.swing.JFrame implements ActionListener 
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException e) {
-            Logger.getLogger(TeacherStream.class.getName()).log(Level.SEVERE, null, e);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(TeacherStream.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(TeacherStream.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(TeacherStream.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException e) {
+//            Logger.getLogger(TeacherStream.class.getName()).log(Level.SEVERE, null, e);
+//        } catch (InstantiationException ex) {
+//            Logger.getLogger(TeacherStream.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            Logger.getLogger(TeacherStream.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            Logger.getLogger(TeacherStream.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         //</editor-fold>
-
+//        try {
+//            UIManager.setLookAndFeel(new FlatSolarizedLightIJTheme());
+//            UIManager.put("Button.arc", 999);
+//            UIManager.put("Component.arc", 999);
+//            UIManager.put("ProgressBar.arc", 999);
+//            UIManager.put("TextComponent.arc", 999);
+//        } catch (UnsupportedLookAndFeelException ex) {
+//            Logger.getLogger(TeacherStream.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
@@ -2124,6 +2160,7 @@ public class TeacherStream extends javax.swing.JFrame implements ActionListener 
     private javax.swing.JPanel firstPanel;
     private javax.swing.JPanel firstPanelBG;
     private javax.swing.JLabel firtPanelButton;
+    private com.formdev.flatlaf.intellijthemes.FlatSolarizedLightIJTheme flatSolarizedLightIJTheme1;
     private javax.swing.JPanel homePanel;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;

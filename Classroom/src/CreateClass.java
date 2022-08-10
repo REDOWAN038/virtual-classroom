@@ -236,7 +236,7 @@ public class CreateClass extends javax.swing.JFrame {
             op = "CREATE TABLE " + tableName + " ("
                     + " sl_no INTEGER NOT NULL, "
                     + " catagory INTEGER NOT NULL, "
-                    + " author VARCHAR(30) NOT NULL, "
+                    + " author VARCHAR(100) NOT NULL, "
                     + " time VARCHAR(100) NOT NULL, "
                     + " post VARCHAR(1000) NOT NULL, "
                     + " title VARCHAR(100) NOT NULL, "

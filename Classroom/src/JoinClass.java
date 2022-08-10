@@ -47,14 +47,13 @@ public class JoinClass extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(100, 100));
-        setPreferredSize(new java.awt.Dimension(650, 350));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblCode.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         lblCode.setText("Class Code");
         getContentPane().add(lblCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 120, 60));
 
-        fieldCode.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        fieldCode.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         getContentPane().add(fieldCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(264, 112, 220, 30));
 
         btnBack.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
